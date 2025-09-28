@@ -6,156 +6,167 @@
     <title>Barème structurel - DarSimul Maroc</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="navbar">
+    <header class="site-header">
+      <div class="container navbar">
         <a href="../index.html" class="brand">DarSimul Maroc</a>
-        <nav>
-          <ul>
-            <li><a href="plan-action.html">Plan d'action</a></li>
-            <li><a href="administratif.html">Documents</a></li>
-            <li><a href="bareme-structure.html" class="active">Barème</a></li>
-            <li><a href="simulation.html">Simulation</a></li>
-          </ul>
+        <nav class="nav-links">
+          <a href="plan-action.html">Plan d'action</a>
+          <a href="administratif.html">Documents</a>
+          <a href="bareme-structure.html" class="active">Barèmes</a>
+          <a href="simulation.html">Simulation</a>
         </nav>
         <a class="btn btn-primary" href="simulation.html">Commencer une simulation</a>
       </div>
     </header>
 
     <main>
-      <section class="banner">
-        <div>
-          <h1>Barème structurel de référence (MAD)</h1>
-          <p>Estimations basées sur le gros œuvre : terrassement, fondations, dalles, élévations, planchers et toiture. Matériaux standards conformes aux pratiques marocaines.</p>
+      <section class="section banner">
+        <div class="container">
+          <div>
+            <h1>Barème structurel de référence (MAD)</h1>
+            <p>Estimations basées sur le gros œuvre : terrassement, fondations, dalles, élévations, planchers et toiture. Matériaux standards conformes aux pratiques marocaines.</p>
+          </div>
         </div>
       </section>
 
-      <section>
-        <h2 class="section-title"><span>1</span>Coûts par typologie</h2>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Typologie</th>
-                <th>Surface indicative</th>
-                <th>Prix bas (MAD/m²)</th>
-                <th>Prix moyen (MAD/m²)</th>
-                <th>Prix haut (MAD/m²)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Maison R+1 (structure béton armé)</td>
-                <td>120 - 220 m²</td>
-                <td>2 600</td>
-                <td>3 200</td>
-                <td>3 800</td>
-              </tr>
-              <tr>
-                <td>Villa isolée R+2</td>
-                <td>250 - 400 m²</td>
-                <td>2 900</td>
-                <td>3 600</td>
-                <td>4 200</td>
-              </tr>
-              <tr>
-                <td>Immeuble R+3 (4 appartements)</td>
-                <td>320 - 500 m²</td>
-                <td>2 700</td>
-                <td>3 300</td>
-                <td>4 000</td>
-              </tr>
-              <tr>
-                <td>Riad traditionnel (structure mixte)</td>
-                <td>200 - 350 m²</td>
-                <td>2 500</td>
-                <td>3 100</td>
-                <td>3 900</td>
-              </tr>
-              <tr>
-                <td>Maison économique R+1</td>
-                <td>90 - 140 m²</td>
-                <td>2 200</td>
-                <td>2 650</td>
-                <td>3 000</td>
-              </tr>
-            </tbody>
-          </table>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Coûts par typologie</h2>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Typologie</th>
+                  <th>Surface indicative</th>
+                  <th>Prix bas (MAD/m²)</th>
+                  <th>Prix moyen (MAD/m²)</th>
+                  <th>Prix haut (MAD/m²)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Maison R+1 (structure béton armé)</td>
+                  <td>120 - 220 m²</td>
+                  <td>2 600</td>
+                  <td>3 200</td>
+                  <td>3 800</td>
+                </tr>
+                <tr>
+                  <td>Villa isolée R+2</td>
+                  <td>250 - 400 m²</td>
+                  <td>2 900</td>
+                  <td>3 600</td>
+                  <td>4 200</td>
+                </tr>
+                <tr>
+                  <td>Immeuble R+3 (4 appartements)</td>
+                  <td>320 - 500 m²</td>
+                  <td>2 700</td>
+                  <td>3 300</td>
+                  <td>4 000</td>
+                </tr>
+                <tr>
+                  <td>Riad traditionnel (structure mixte)</td>
+                  <td>200 - 350 m²</td>
+                  <td>2 500</td>
+                  <td>3 100</td>
+                  <td>3 900</td>
+                </tr>
+                <tr>
+                  <td>Maison économique R+1</td>
+                  <td>90 - 140 m²</td>
+                  <td>2 200</td>
+                  <td>2 650</td>
+                  <td>3 000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
-      <section style="margin-top: 3rem;">
-        <h2 class="section-title"><span>2</span>Répartition du coût du gros œuvre</h2>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Fondations & infrastructure</h3>
-            <p>30&nbsp;% du budget. Comprend terrassement, semelles, longrines, étanchéité des soubassements.</p>
-          </article>
-          <article class="card">
-            <h3>Élévations & planchers</h3>
-            <p>45&nbsp;% du budget. Comprend poteaux, poutres, voiles, murs porteurs, dalles pleines ou hourdis.</p>
-          </article>
-          <article class="card">
-            <h3>Toiture & protections</h3>
-            <p>25&nbsp;% du budget. Toiture terrasse ou inclinée, isolation basique, acrotères et évacuations pluviales.</p>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Répartition du coût du gros œuvre</h2>
+          <div class="grid grid-3">
+            <article class="card">
+              <h3>Fondations & infrastructure</h3>
+              <p>30&nbsp;% du budget. Comprend terrassement, semelles, longrines, étanchéité des soubassements.</p>
+            </article>
+            <article class="card">
+              <h3>Élévations & planchers</h3>
+              <p>45&nbsp;% du budget. Comprend poteaux, poutres, voiles, murs porteurs, dalles pleines ou hourdis.</p>
+            </article>
+            <article class="card">
+              <h3>Toiture & protections</h3>
+              <p>25&nbsp;% du budget. Toiture terrasse ou inclinée, isolation basique, acrotères et évacuations pluviales.</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section style="margin-top: 3rem;">
-        <h2 class="section-title"><span>3</span>Coefficients régionaux</h2>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Casablanca-Settat</h3>
-            <p>Coefficient 1,00 (référence). Forte disponibilité de matériaux et main d'œuvre.</p>
-          </article>
-          <article class="card">
-            <h3>Rabat-Salé-Kénitra</h3>
-            <p>Coefficient 1,05. Exigences administratives renforcées, main d'œuvre qualifiée.</p>
-          </article>
-          <article class="card">
-            <h3>Marrakech-Safi</h3>
-            <p>Coefficient 0,95. Coûts légèrement inférieurs hors zones touristiques, attention aux contraintes climatiques.</p>
-          </article>
-          <article class="card">
-            <h3>Régions Sud</h3>
-            <p>Coefficient 1,10. Logistique et transport augmentent le coût du béton et du fer à béton.</p>
-          </article>
-          <article class="card">
-            <h3>Oriental</h3>
-            <p>Coefficient 1,08. Approvisionnement en matériaux parfois importés, renforcement sismique nécessaire.</p>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Coefficients régionaux</h2>
+          <div class="grid grid-3">
+            <article class="card">
+              <h3>Casablanca-Settat</h3>
+              <p>Coefficient 1,00 (référence). Forte disponibilité de matériaux et main d'œuvre.</p>
+            </article>
+            <article class="card">
+              <h3>Rabat-Salé-Kénitra</h3>
+              <p>Coefficient 1,05. Exigences administratives renforcées, main d'œuvre qualifiée.</p>
+            </article>
+            <article class="card">
+              <h3>Marrakech-Safi</h3>
+              <p>Coefficient 0,95. Coûts légèrement inférieurs hors zones touristiques, attention aux contraintes climatiques.</p>
+            </article>
+            <article class="card">
+              <h3>Régions Sud</h3>
+              <p>Coefficient 1,10. Logistique et transport augmentent le coût du béton et du fer à béton.</p>
+            </article>
+            <article class="card">
+              <h3>Oriental</h3>
+              <p>Coefficient 1,08. Approvisionnement en matériaux parfois importés, renforcement sismique nécessaire.</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section style="margin-top: 3rem;">
-        <h2 class="section-title"><span>4</span>Hypothèses techniques du barème</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Structure</h3>
-            <ul>
-              <li>Béton armé C25/30, acier HA Fe500, murs de remplissage en briques creuses.</li>
-              <li>Norme parasismique RPS 2011 zone II (peut varier selon la région).</li>
-              <li>Charges climatiques standard (vent, pluie) selon RNV.</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Prestations incluses</h3>
-            <ul>
-              <li>Terrassement, fondations, dallage RDC, élévations, planchers, escalier brut, toiture.</li>
-              <li>Non inclus : VRD, menuiseries, revêtements, équipements techniques.</li>
-              <li>Provision imprévus 5&nbsp;% intégrée dans le prix moyen.</li>
-            </ul>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Hypothèses techniques du barème</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>Structure</h3>
+              <ul>
+                <li>Béton armé C25/30, acier HA Fe500, murs de remplissage en briques creuses.</li>
+                <li>Norme parasismique RPS 2011 zone II (peut varier selon la région).</li>
+                <li>Charges climatiques standard (vent, pluie) selon RNV.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Prestations incluses</h3>
+              <ul>
+                <li>Terrassement, fondations, dallage RDC, élévations, planchers, escalier brut, toiture.</li>
+                <li>Non inclus : VRD, menuiseries, revêtements, équipements techniques.</li>
+                <li>Provision imprévus 5&nbsp;% intégrée dans le prix moyen.</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="footer-grid">
+      <div class="container footer-grid">
         <div>
           <h3>DarSimul Maroc</h3>
           <p>Des repères budgétaires fiables pour anticiper la structure de votre habitation.</p>
@@ -169,6 +180,13 @@
           </ul>
         </div>
       </div>
+      <div class="footer-bottom">© <span id="year"></span> DarSimul Maroc — Tous droits réservés.</div>
     </footer>
+    <script>
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
   </body>
 </html>

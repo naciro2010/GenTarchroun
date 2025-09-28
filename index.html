@@ -3,121 +3,322 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Générateur de devis construction Maroc</title>
+    <title>DarSimul Maroc — Simulateur de construction local</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="navbar">
+    <header class="site-header">
+      <div class="container navbar">
         <a href="index.html" class="brand">DarSimul Maroc</a>
-        <nav>
-          <ul>
-            <li><a href="pages/plan-action.html">Plan d'action</a></li>
-            <li><a href="pages/administratif.html">Documents</a></li>
-            <li><a href="pages/bareme-structure.html">Barème</a></li>
-            <li><a href="pages/simulation.html">Simulation</a></li>
-          </ul>
+        <nav class="nav-links">
+          <a href="#services">Offre</a>
+          <a href="#simulateur">Simulateur</a>
+          <a href="#territoires">Régions</a>
+          <a href="#ressources">Ressources</a>
+          <a href="#contact">Contact</a>
         </nav>
-        <a class="btn btn-primary" href="pages/simulation.html">Calculer un devis</a>
+        <a class="btn btn-primary" href="pages/simulation.html">Lancer un devis</a>
       </div>
     </header>
 
     <main>
-      <section class="hero">
-        <div class="hero-content">
-          <span class="badge">Solutions pour le marché marocain</span>
-          <h1>Simulez votre construction de maison en quelques minutes</h1>
-          <p>
-            DarSimul Maroc rassemble les références techniques et réglementaires locales pour générer des devis adaptés aux standards de construction au Maroc. Saisissez vos besoins, choisissez le type de structure et obtenez une estimation structurée pour lancer votre projet.
+      <section class="hero" id="accueil">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <div class="badge-tray">
+              <span class="badge">🇲🇦 Optimisé pour le marché marocain</span>
+              <span class="badge badge-soft">متوفر بالفرنسية و بالعربية</span>
+            </div>
+            <h1>
+              Simulez votre projet immobilier avec des barèmes marocains actualisés
+            </h1>
+            <p>
+              DarSimul Maroc centralise les références techniques, administratives et financières
+              pour estimer une construction neuve au Maroc en quelques minutes seulement.
+              Visualisez vos coûts, sécurisez vos démarches et partagez un dossier clair avec vos partenaires.
+            </p>
+            <div class="cta">
+              <a class="btn btn-primary" href="pages/simulation.html">Démarrer la simulation</a>
+              <a class="btn btn-outline" href="#services">Voir tout ce qui est inclus</a>
+            </div>
+            <dl class="hero-stats">
+              <div>
+                <dt>+80</dt>
+                <dd>scénarios adaptés aux typologies marocaines (R+1, villas, riads…)</dd>
+              </div>
+              <div>
+                <dt>12</dt>
+                <dd>régions couvertes avec indices de coûts mise à jour trimestrielle</dd>
+              </div>
+              <div>
+                <dt>&lt;5 min</dt>
+                <dd>pour obtenir un chiffrage détaillé et exportable</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="hero-visual">
+            <img
+              src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80"
+              alt="Perspective d'une villa contemporaine au Maroc"
+            />
+            <div class="hero-card">
+              <p>Indice prix béton Casablanca</p>
+              <strong>1 120 MAD/m³</strong>
+              <small>Dernière mise à jour : Avril 2024</small>
+            </div>
+            <div class="hero-card">
+              <p>Subvention Fogarim</p>
+              <strong>Jusqu'à 80% financé</strong>
+              <small>Eligibilité intégrée au simulateur</small>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <h2 class="section-title">Un accompagnement complet pour passer de l'idée au chantier</h2>
+          <p class="section-intro">
+            Chaque module s'appuie sur des données locales vérifiées auprès d'experts marocains : ingénieurs structure,
+            architectes agréés, administrations communales et fournisseurs nationaux.
           </p>
-          <div class="cta">
-            <a class="btn btn-primary" href="pages/simulation.html">Lancer une simulation</a>
-            <a class="btn btn-outline" href="pages/plan-action.html">Découvrir la méthodologie</a>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h3>Études préliminaires contextualisées</h3>
+              <p>
+                Analysez vos besoins avec des questionnaires adaptés aux normes sismiques, aux contraintes de terrain et aux pratiques locales.
+                Recevez un plan d'action priorisé pour votre province.
+              </p>
+              <a href="pages/plan-action.html" class="link">Voir le plan d'action</a>
+            </article>
+            <article class="feature-card">
+              <h3>Cadre administratif simplifié</h3>
+              <p>
+                Parcourez les procédures auprès des communes, agences urbaines, ANCFCC et opérateurs de raccordement pour éviter tout blocage.
+                Des checklists bilingues vous guident étape par étape.
+              </p>
+              <a href="pages/administratif.html" class="link">Préparer vos démarches</a>
+            </article>
+            <article class="feature-card">
+              <h3>Barèmes structurés et transparents</h3>
+              <p>
+                Accédez à des fourchettes réalistes pour le gros œuvre, la main-d'œuvre et les finitions, avec des coefficients par région
+                et un historique des fluctuations des matériaux.
+              </p>
+              <a href="pages/bareme-structure.html" class="link">Explorer les barèmes</a>
+            </article>
           </div>
         </div>
-        <div class="hero-illustration">
-          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80" alt="Vue architecturale d'une villa contemporaine" />
-        </div>
       </section>
 
-      <section>
-        <h2 class="section-title"><span>1</span>Une base documentaire complète</h2>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Planification stratégique</h3>
-            <p>
-              Comprenez les tendances régionales, les niveaux de budget et les attentes des ménages marocains grâce à une feuille de route claire et contextualisée.
-            </p>
-            <a href="pages/plan-action.html" class="btn btn-outline">Consulter</a>
-          </article>
-          <article class="card">
-            <h3>Cadre administratif</h3>
-            <p>
-              Liste détaillée des démarches à effectuer auprès des communes, agences urbaines et organismes publics pour sécuriser votre chantier.
-            </p>
-            <a href="pages/administratif.html" class="btn btn-outline">Vérifier les obligations</a>
-          </article>
-          <article class="card">
-            <h3>Barème structurel</h3>
-            <p>
-              Estimations de coûts de gros œuvre actualisées au marché marocain, par type de structure et niveau de finition brute.
-            </p>
-            <a href="pages/bareme-structure.html" class="btn btn-outline">Explorer les coûts</a>
-          </article>
-        </div>
-      </section>
-
-      <section style="margin-top: 4rem;">
-        <h2 class="section-title"><span>2</span>Un simulateur intuitif</h2>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Entrée par scénarios</h3>
-            <p>Maison R+1, villa, riad ou construction modulaire&nbsp;: choisissez un gabarit ou personnalisez chaque niveau.</p>
-          </article>
-          <article class="card">
-            <h3>Calcul instantané</h3>
-            <p>Nos barèmes structuraux prennent en compte les normes sismiques et thermiques appliquées au Maroc pour une estimation réaliste.</p>
-          </article>
-          <article class="card">
-            <h3>Dossier exportable</h3>
-            <p>Téléchargez un récapitulatif PDF avec coûts estimatifs, métrés et contacts d'artisans qualifiés par région.</p>
-          </article>
-        </div>
-      </section>
-
-      <section style="margin-top: 4rem;">
-        <div class="banner">
+      <section class="section highlight" id="simulateur">
+        <div class="container simulateur-grid">
           <div>
-            <h2>Prêt à transformer votre idée en projet concret&nbsp;?</h2>
-            <p>Renseignez vos métrés et recevez une estimation réaliste compatible avec les pratiques du marché marocain.</p>
+            <h2 class="section-title">Un simulateur pensé pour les porteurs de projet marocains</h2>
+            <ul class="feature-list">
+              <li><strong>Parcours guidé :</strong> choisissez un scénario (riad, villa, immeuble R+2) ou modélisez niveau par niveau.</li>
+              <li><strong>Calculs instantanés :</strong> intégration des normes parasismiques RPS 2011 et coefficients énergétiques régionaux.</li>
+              <li><strong>Livrables prêts à l'emploi :</strong> export PDF, partage WhatsApp, dossier technique pour l'architecte.</li>
+              <li><strong>Financement :</strong> estimation des mensualités bancaires et aides publiques (Fogarim, Damane).</li>
+            </ul>
+            <div class="cta">
+              <a class="btn btn-primary" href="pages/simulation.html">Tester la simulation</a>
+              <a class="btn btn-outline" href="pages/simulation.html#process">Voir la méthodologie</a>
+            </div>
           </div>
-          <a class="btn btn-primary" href="pages/simulation.html">Commencer maintenant</a>
+          <div class="simulateur-pane">
+            <div class="pane-card">
+              <h3>Vos entrées</h3>
+              <ul>
+                <li>Surface terrain : 220 m²</li>
+                <li>Configuration : R+1 + terrasse</li>
+                <li>Finition : Standing supérieur</li>
+              </ul>
+            </div>
+            <div class="pane-card accent">
+              <h3>Estimation</h3>
+              <p class="amount">1,98 M MAD</p>
+              <p class="note">Fourchette : 1,8 — 2,1 M MAD</p>
+              <hr />
+              <dl class="breakdown">
+                <div>
+                  <dt>Structure</dt>
+                  <dd>43%</dd>
+                </div>
+                <div>
+                  <dt>Finitions</dt>
+                  <dd>37%</dd>
+                </div>
+                <div>
+                  <dt>Études</dt>
+                  <dd>8%</dd>
+                </div>
+                <div>
+                  <dt>Imprévus</dt>
+                  <dd>12%</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="territoires">
+        <div class="container">
+          <h2 class="section-title">Des indices de coûts par région pour planifier sereinement</h2>
+          <div class="region-grid">
+            <article class="region-card">
+              <header>
+                <h3>Casablanca-Settat</h3>
+                <small>Mise à jour : Mai 2024</small>
+              </header>
+              <p>Gros œuvre entre <strong>2 900</strong> et <strong>3 600 MAD/m²</strong> selon la nature du sol et le niveau de finition.</p>
+              <ul>
+                <li>Disponibilité matériaux : élevée</li>
+                <li>Contraintes sismiques : zone 2</li>
+                <li>Spécificités : accès portuaire pour matériaux importés</li>
+              </ul>
+            </article>
+            <article class="region-card">
+              <header>
+                <h3>Marrakech-Safi</h3>
+                <small>Mise à jour : Avril 2024</small>
+              </header>
+              <p>Coût global entre <strong>2 500</strong> et <strong>3 100 MAD/m²</strong> avec prise en compte de la climatisation passive.</p>
+              <ul>
+                <li>Disponibilité main-d'œuvre : forte</li>
+                <li>Contraintes climatiques : amplitude thermique élevée</li>
+                <li>Spécificités : matériaux terre cuite et tadelakt</li>
+              </ul>
+            </article>
+            <article class="region-card">
+              <header>
+                <h3>Tanger-Tétouan-Al Hoceïma</h3>
+                <small>Mise à jour : Mars 2024</small>
+              </header>
+              <p>Budget moyen <strong>2 700</strong> – <strong>3 400 MAD/m²</strong> incluant les normes portuaires et les charges de vent.</p>
+              <ul>
+                <li>Disponibilité matériaux : moyenne</li>
+                <li>Contraintes sismiques : zone 3</li>
+                <li>Spécificités : toitures inclinées & isolation renforcée</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section timeline" id="ressources">
+        <div class="container">
+          <h2 class="section-title">Votre parcours en 4 étapes</h2>
+          <div class="timeline-grid">
+            <article class="step">
+              <span class="step-index">1</span>
+              <h3>Préparer votre dossier</h3>
+              <p>Checklists administratives, listes de pièces et jalons communaux adaptés à votre wilaya.</p>
+            </article>
+            <article class="step">
+              <span class="step-index">2</span>
+              <h3>Définir votre enveloppe</h3>
+              <p>Comparateur de scénarios et ajustements dynamiques sur les matériaux, finitions et délais.</p>
+            </article>
+            <article class="step">
+              <span class="step-index">3</span>
+              <h3>Valider les partenaires</h3>
+              <p>Annuaire d'architectes, bureaux d'études et entreprises certifiées, filtrés par région.</p>
+            </article>
+            <article class="step">
+              <span class="step-index">4</span>
+              <h3>Lancer le chantier sereinement</h3>
+              <p>Suivi des coûts, alertes matières premières et partage des rapports avec les financeurs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section testimonial">
+        <div class="container testimonial-grid">
+          <div>
+            <h2 class="section-title">Ils construisent déjà avec DarSimul</h2>
+            <p class="section-intro">
+              "Grâce à DarSimul, nous avons pu comparer deux configurations de villa à Mohammedia
+              et obtenir un financement bancaire en présentant un dossier précis et crédible."
+            </p>
+            <p class="author">— Samira & Yassine, projets diaspora à Casablanca</p>
+          </div>
+          <div class="trust-grid">
+            <div class="trust-card">
+              <strong>92%</strong>
+              <span>de précision moyenne entre estimation et devis final</span>
+            </div>
+            <div class="trust-card">
+              <strong>+120</strong>
+              <span>professionnels partenaires (architectes, bureaux d'études, entreprises)</span>
+            </div>
+            <div class="trust-card">
+              <strong>48h</strong>
+              <span>pour obtenir un retour expert sur votre estimation</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-section" id="contact">
+        <div class="container cta-panel">
+          <div>
+            <h2>Prêt à faire avancer votre projet ?</h2>
+            <p>
+              Créez un compte gratuitement, simulez vos scénarios et recevez une analyse personnalisée
+              de nos ingénieurs partenaires. Nous accompagnons aussi bien les particuliers que les promoteurs locaux.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="pages/simulation.html">Lancer une simulation</a>
+            <a class="btn btn-outline" href="mailto:contact@darsimul.ma">Échanger avec un expert</a>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="footer-grid">
+      <div class="container footer-grid">
         <div>
           <h3>DarSimul Maroc</h3>
-          <p>La plateforme de référence pour préparer vos projets de construction au Maroc, du cadre légal à la simulation budgétaire.</p>
+          <p>
+            La plateforme digitale qui démocratise la préparation des projets de construction au Maroc avec
+            des données fiables, des checklists bilingues et un simulateur intuitif.
+          </p>
         </div>
         <div>
           <h4>Ressources</h4>
           <ul>
             <li><a href="pages/plan-action.html">Plan d'action</a></li>
             <li><a href="pages/administratif.html">Procédures</a></li>
-            <li><a href="pages/bareme-structure.html">Barème structurel</a></li>
+            <li><a href="pages/bareme-structure.html">Barèmes</a></li>
+            <li><a href="pages/simulation.html">Simulateur</a></li>
           </ul>
         </div>
         <div>
-          <h4>Contact</h4>
-          <p>contact@darsimul.ma<br />+212 5XX XX XX XX</p>
+          <h4>Coordonnées</h4>
+          <p>
+            contact@darsimul.ma<br />
+            +212 5XX XX XX XX<br />
+            34, Avenue des FAR, Casablanca
+          </p>
         </div>
       </div>
+      <div class="footer-bottom">© <span id="year"></span> DarSimul Maroc — Tous droits réservés.</div>
     </footer>
+    <script>
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
   </body>
 </html>

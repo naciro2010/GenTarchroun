@@ -6,113 +6,135 @@
     <title>Plan d'action - DarSimul Maroc</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../assets/css/style.css" />
   </head>
   <body>
-    <header>
-      <div class="navbar">
+    <header class="site-header">
+      <div class="container navbar">
         <a href="../index.html" class="brand">DarSimul Maroc</a>
-        <nav>
-          <ul>
-            <li><a href="plan-action.html" class="active">Plan d'action</a></li>
-            <li><a href="administratif.html">Documents</a></li>
-            <li><a href="bareme-structure.html">Barème</a></li>
-            <li><a href="simulation.html">Simulation</a></li>
-          </ul>
+        <nav class="nav-links">
+          <a href="plan-action.html" class="active">Plan d'action</a>
+          <a href="administratif.html">Documents</a>
+          <a href="bareme-structure.html">Barèmes</a>
+          <a href="simulation.html">Simulation</a>
         </nav>
         <a class="btn btn-primary" href="simulation.html">Commencer une simulation</a>
       </div>
     </header>
 
     <main>
-      <section class="banner">
-        <div>
-          <h1>Plan d'action pour un simulateur de devis au Maroc</h1>
-          <p>Une feuille de route détaillée pour structurer l'offre, comprendre le marché et lancer la plateforme en respectant le contexte marocain.</p>
+      <section class="section banner">
+        <div class="container">
+          <div>
+            <h1>Plan d'action pour un simulateur de devis au Maroc</h1>
+            <p>
+              Une feuille de route détaillée pour structurer l'offre, comprendre le marché et lancer la plateforme en
+              respectant le contexte marocain.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section>
-        <h2 class="section-title"><span>A</span>Analyse du marché marocain</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Segmentation de la demande</h3>
-            <ul>
-              <li>Particuliers construisant une résidence principale (urbain et périurbain).</li>
-              <li>Investisseurs locatifs visant des immeubles R+2/R+3.</li>
-              <li>Projets de maisons secondaires et touristiques (côtes, Atlas).</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Tendances budgétaires</h3>
-            <p>
-              Budget moyen structure (gros œuvre) : 2 600 à 4 000 MAD/m² selon la région, le type de sol, les exigences sismiques et la qualité des matériaux structurels.
-            </p>
-            <p>
-              Budget total clé en main : 4 500 à 7 500 MAD/m² pour les villas urbaines. Ces repères alimentent le calculateur.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Concurrence & différenciation</h3>
-            <p>
-              Peu d'outils en ligne contextualisés. Les bureaux d'études proposent des devis manuels. L'avantage compétitif réside dans la rapidité, la transparence des barèmes et la conformité administrative intégrée.
-            </p>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Analyse du marché marocain</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>Segmentation de la demande</h3>
+              <ul>
+                <li>Particuliers construisant une résidence principale (urbain et périurbain).</li>
+                <li>Investisseurs locatifs visant des immeubles R+2/R+3.</li>
+                <li>Projets de maisons secondaires et touristiques (côtes, Atlas).</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Tendances budgétaires</h3>
+              <p>
+                Budget moyen structure (gros œuvre) : 2 600 à 4 000 MAD/m² selon la région, le type de sol, les exigences
+                sismiques et la qualité des matériaux structurels.
+              </p>
+              <p>
+                Budget total clé en main : 4 500 à 7 500 MAD/m² pour les villas urbaines. Ces repères alimentent le
+                calculateur.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Concurrence & différenciation</h3>
+              <p>
+                Peu d'outils en ligne contextualisés. Les bureaux d'études proposent des devis manuels. L'avantage
+                compétitif réside dans la rapidité, la transparence des barèmes et la conformité administrative intégrée.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section style="margin-top: 3rem;">
-        <h2 class="section-title"><span>B</span>Feuille de route fonctionnelle</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Phase 1&nbsp;: Contenus & UX</h3>
-            <ul>
-              <li>Structurer les pages d'information réglementaire et les guides budgétaires.</li>
-              <li>Concevoir l'expérience utilisateur&nbsp;: formulaires progressifs, scénarios préconfigurés, rendu visuel simplifié.</li>
-              <li>Créer des personas (famille urbaine, promoteur local, diaspora).</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Phase 2&nbsp;: Données & calculs</h3>
-            <ul>
-              <li>Collecter des prix unitaires par région (Casablanca-Settat, Rabat-Salé-Kénitra, Marrakech-Safi...).</li>
-              <li>Définir les coefficients structurels (fondations, dallage, élévations, toiture).</li>
-              <li>Intégrer les marges de sécurité (imprévus, fluctuations matériaux).</li>
-            </ul>
-          </article>
-          <article class="card">
-            <h3>Phase 3&nbsp;: Services & partenariats</h3>
-            <ul>
-              <li>Accords avec bureaux d'études, architectes, entreprises générales.</li>
-              <li>Intégration des modes de financement (banques marocaines, Fogarim, crédits participatifs).</li>
-              <li>Déploiement d'un support client multicanal (WhatsApp Business, call center).</li>
-            </ul>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Feuille de route fonctionnelle</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>Phase 1&nbsp;: Contenus & UX</h3>
+              <ul>
+                <li>Structurer les pages d'information réglementaire et les guides budgétaires.</li>
+                <li>Concevoir l'expérience utilisateur&nbsp;: formulaires progressifs, scénarios préconfigurés, rendu visuel simplifié.</li>
+                <li>Créer des personas (famille urbaine, promoteur local, diaspora).</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Phase 2&nbsp;: Données & calculs</h3>
+              <ul>
+                <li>Collecter des prix unitaires par région (Casablanca-Settat, Rabat-Salé-Kénitra, Marrakech-Safi...).</li>
+                <li>Définir les coefficients structurels (fondations, dallage, élévations, toiture).</li>
+                <li>Intégrer les marges de sécurité (imprévus, fluctuations matériaux).</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>Phase 3&nbsp;: Services & partenariats</h3>
+              <ul>
+                <li>Accords avec bureaux d'études, architectes, entreprises générales.</li>
+                <li>Intégration des modes de financement (banques marocaines, Fogarim, crédits participatifs).</li>
+                <li>Déploiement d'un support client multicanal (WhatsApp Business, call center).</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section style="margin-top: 3rem;">
-        <h2 class="section-title"><span>C</span>Indicateurs clés</h2>
-        <div class="grid grid-3">
-          <article class="card">
-            <h3>Acquisition</h3>
-            <p>SEO ciblé (construction maison Maroc, devis villa Maroc), campagnes Facebook/Instagram géolocalisées, partenariats avec agences immobilières.</p>
-          </article>
-          <article class="card">
-            <h3>Conversion</h3>
-            <p>Taux de complétion du formulaire, valeur moyenne des devis générés, taux de contact post-devis.</p>
-          </article>
-          <article class="card">
-            <h3>Qualité</h3>
-            <p>Indice de précision (écart entre devis simulé et devis final), NPS client, délai de traitement des demandes de suivi.</p>
-          </article>
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Indicateurs clés</h2>
+          <div class="grid grid-3">
+            <article class="card">
+              <h3>Acquisition</h3>
+              <p>
+                SEO ciblé (construction maison Maroc, devis villa Maroc), campagnes Facebook/Instagram géolocalisées,
+                partenariats avec agences immobilières.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Conversion</h3>
+              <p>
+                Taux de complétion du formulaire, valeur moyenne des devis générés, taux de contact post-devis.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Qualité</h3>
+              <p>
+                Indice de précision (écart entre devis simulé et devis final), NPS client, délai de traitement des demandes de suivi.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="footer-grid">
+      <div class="container footer-grid">
         <div>
           <h3>DarSimul Maroc</h3>
           <p>Accélérez la préparation de vos projets grâce à des références précises et adaptées au terrain marocain.</p>
@@ -126,6 +148,13 @@
           </ul>
         </div>
       </div>
+      <div class="footer-bottom">© <span id="year"></span> DarSimul Maroc — Tous droits réservés.</div>
     </footer>
+    <script>
+      const yearSpan = document.getElementById("year");
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
   </body>
 </html>
