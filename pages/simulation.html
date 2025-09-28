@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulation de devis - DarSimul Maroc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <script src="../assets/js/simulator.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <a href="../index.html" class="brand">DarSimul Maroc</a>
+        <nav>
+          <ul>
+            <li><a href="plan-action.html">Plan d'action</a></li>
+            <li><a href="administratif.html">Documents</a></li>
+            <li><a href="bareme-structure.html">Barème</a></li>
+            <li><a href="simulation.html" class="active">Simulation</a></li>
+          </ul>
+        </nav>
+        <a class="btn btn-primary" href="#resultats">Voir l'estimation</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="banner">
+        <div>
+          <h1>Simulateur de coût de construction</h1>
+          <p>
+            Renseignez les paramètres principaux de votre projet pour obtenir une estimation de gros œuvre alignée sur le marché marocain. Les valeurs s'appuient sur le barème structurel présenté dans la section dédiée.
+          </p>
+        </div>
+      </section>
+
+      <form id="simulation-form" class="simulation-form" novalidate>
+        <section>
+          <h2 class="section-title"><span>1</span>Informations générales</h2>
+          <div class="form-block">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="region">Région du projet</label>
+                <select id="region" name="region">
+                  <option value="casablanca">Casablanca-Settat</option>
+                  <option value="rabat">Rabat-Salé-Kénitra</option>
+                  <option value="marrakech">Marrakech-Safi</option>
+                  <option value="tanger">Tanger-Tétouan-Al Hoceïma</option>
+                  <option value="oriental">Oriental</option>
+                  <option value="sud">Laâyoune/Guelmim & Sud</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="surface">Surface totale (m²)</label>
+                <input type="number" id="surface" name="surface" placeholder="Ex. 240" min="50" required />
+              </div>
+              <div class="form-group">
+                <label for="levels">Nombre de niveaux</label>
+                <select id="levels" name="levels">
+                  <option value="rdc">RDC</option>
+                  <option value="r+1">R+1</option>
+                  <option value="r+2">R+2</option>
+                  <option value="r+3">R+3</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="typologie">Typologie</label>
+                <select id="typologie" name="typologie">
+                  <option value="villa">Villa contemporaine</option>
+                  <option value="riad">Riad traditionnel</option>
+                  <option value="maison-eco">Maison économique</option>
+                  <option value="immeuble">Immeuble locatif</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-info">
+              <h3>Comment est calculée l'estimation&nbsp;?</h3>
+              <p>
+                Le montant s'appuie sur un coût moyen au mètre carré issu du barème structurel, ajusté à l'aide de coefficients régionaux et techniques. Une marge pour imprévus est intégrée automatiquement.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title"><span>2</span>Caractéristiques structurelles</h2>
+          <div class="form-block">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="fondations">Type de fondations</label>
+                <select id="fondations" name="fondations">
+                  <option value="semelles">Semelles isolées</option>
+                  <option value="radier">Radier général</option>
+                  <option value="pieux">Pieux & longrines</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="structure">Structure verticale</label>
+                <select id="structure" name="structure">
+                  <option value="portique">Portiques béton armé</option>
+                  <option value="voiles">Voiles & poteaux BA</option>
+                  <option value="mixte">Structure mixte acier-béton</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dallage">Type de plancher</label>
+                <select id="dallage" name="dallage">
+                  <option value="hourdis">Hourdis béton</option>
+                  <option value="dalle-pleine">Dalle pleine</option>
+                  <option value="poutrelles">Poutrelles-hourdis</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="toiture">Système de toiture</label>
+                <select id="toiture" name="toiture">
+                  <option value="terrasse">Terrasse accessible</option>
+                  <option value="inclinee">Charpente inclinée</option>
+                  <option value="mixte">Mixte terrasse/inclinée</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-info">
+              <h3>Visualisation simplifiée</h3>
+              <p>
+                Après intégration dans une application complète, ces données pourront générer une maquette 3D indicative (maison cubique, villa toit incliné, riad avec patio) pour illustrer le rendu attendu.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title"><span>3</span>Options d'ajustement</h2>
+          <div class="form-block">
+            <div class="option-list">
+              <label class="option-card">
+                <input type="checkbox" id="honoraires" name="honoraires" />
+                <span>
+                  <strong>Inclure les honoraires de maîtrise d'œuvre</strong>
+                  <small>(+7&nbsp;% du montant structurel)</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="checkbox" id="vrd" name="vrd" />
+                <span>
+                  <strong>Ajouter une réserve VRD & raccordements</strong>
+                  <small>(+400 MAD / m²)</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input type="checkbox" id="contingence" name="contingence" checked />
+                <span>
+                  <strong>Marge imprévus</strong>
+                  <small>(+5&nbsp;%&nbsp;– activée par défaut)</small>
+                </span>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Calculer l'estimation</button>
+              <p class="form-hint">Le résultat se met à jour à chaque modification. Les valeurs restent indicatives.</p>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <section id="resultats" class="results" aria-live="polite">
+        <h2 class="section-title"><span>4</span>Résultats de la simulation</h2>
+        <div class="results-grid">
+          <article class="results-card">
+            <h3>Montant global estimé</h3>
+            <p class="result-figure" id="total-estimate">Renseignez la surface pour démarrer.</p>
+            <p class="result-range" id="range-estimate"></p>
+            <p class="result-note" id="per-m2"></p>
+          </article>
+          <article class="results-card">
+            <h3>Répartition par poste</h3>
+            <dl class="breakdown" id="breakdown"></dl>
+            <p class="result-note">Hypothèses issues du barème structurel : 30&nbsp;% fondations, 45&nbsp;% élévations, 25&nbsp;% toiture.</p>
+          </article>
+          <article class="results-card">
+            <h3>Résumé du scénario</h3>
+            <p id="scenario-resume">Complétez le formulaire pour afficher un résumé personnalisé.</p>
+            <ul id="extra-options" class="result-list"></ul>
+          </article>
+        </div>
+        <noscript>
+          <p class="result-note">Ce simulateur nécessite JavaScript pour fonctionner. Activez-le dans votre navigateur.</p>
+        </noscript>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-grid">
+        <div>
+          <h3>DarSimul Maroc</h3>
+          <p>Un simulateur pensé pour les besoins des maîtres d'ouvrage marocains.</p>
+        </div>
+        <div>
+          <h4>En savoir plus</h4>
+          <ul>
+            <li><a href="plan-action.html">Plan d'action</a></li>
+            <li><a href="administratif.html">Procédures</a></li>
+            <li><a href="bareme-structure.html">Barème structurel</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
