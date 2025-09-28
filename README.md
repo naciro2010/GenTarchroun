@@ -19,11 +19,19 @@ Aucun serveur n'est requis : tout fonctionne côté client.
 
 ## Publication sur GitHub Pages
 
+### Déploiement automatique via GitHub Actions (recommandé)
+
 1. Créez un dépôt GitHub et poussez-y ces fichiers (`git init`, `git add .`, `git commit`, `git branch -M main`, `git remote add origin`, `git push origin main`).
-2. Dans GitHub, ouvrez **Settings → Pages**.
-3. Dans la section **Build and deployment**, choisissez **Deploy from a branch**.
-4. Sélectionnez la branche `main` et le dossier `/ (root)` puis sauvegardez.
-5. Patientez quelques minutes que GitHub génère le site. L'URL publique est affichée dans la section Pages (format `https://<votre-utilisateur>.github.io/<nom-du-dépôt>/`).
+2. Le workflow `.github/workflows/deploy-pages.yml` publiera automatiquement le site sur GitHub Pages à chaque push sur `main`.
+3. Lors du premier déploiement, ouvrez **Settings → Pages**, vérifiez que la source est **GitHub Actions** et sauvegardez si nécessaire.
+4. Le statut et l'URL publique sont visibles dans l'onglet **Actions** puis dans **Pages** (format `https://<votre-utilisateur>.github.io/<nom-du-dépôt>/`).
+
+### Déploiement manuel (alternative)
+
+1. Dans GitHub, ouvrez **Settings → Pages**.
+2. Dans la section **Build and deployment**, choisissez **Deploy from a branch**.
+3. Sélectionnez la branche `main` et le dossier `/ (root)` puis sauvegardez.
+4. Patientez quelques minutes que GitHub génère le site. L'URL publique est affichée dans la section Pages.
 
 Les chemins relatifs déjà présents permettent un fonctionnement direct sur GitHub Pages. Pensez à personnaliser les textes (contact, coefficients) avant la mise en ligne publique.
 
