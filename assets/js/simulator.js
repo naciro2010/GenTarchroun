@@ -1,10 +1,82 @@
-const regionCoefficients = {
-  casablanca: 1,
-  rabat: 1.05,
-  marrakech: 0.95,
-  tanger: 1.03,
-  oriental: 1.08,
-  sud: 1.1,
+const regionProfiles = {
+  casablanca: {
+    label: "Casablanca-Settat",
+    coefficient: 1,
+    structureRange: [3400, 3900],
+    turnkeyRange: [5400, 7800],
+    plan: [
+      "Faire réaliser une étude de sol G2 AVP pour anticiper la portance des terrains littoraux.",
+      "Déposer le dossier d'autorisation auprès de l'Agence urbaine et de la commune (délai moyen 4 à 6 semaines).",
+      "Lancer une consultation d'entreprises locales pour sécuriser les lots gros œuvre et béton prêt à l'emploi.",
+    ],
+    insight:
+      "Marché très actif : prévoir une marge sur les prix matériaux et la disponibilité des équipes qualifiées.",
+  },
+  rabat: {
+    label: "Rabat-Salé-Kénitra",
+    coefficient: 1.05,
+    structureRange: [3500, 4100],
+    turnkeyRange: [5600, 7900],
+    plan: [
+      "Coordonner l'étude de stabilité parasismique (zone 2/3) avec l'ingénieur structure.",
+      "Consulter les services de la Wilaya et de la commune pour valider le plan d'implantation.",
+      "Prévoir un contrôle technique externe pour les ouvrages porteurs (préféré dans le secteur public).",
+    ],
+    insight:
+      "Région administrative : les exigences documentaires sont élevées mais la main-d'œuvre qualifiée est accessible.",
+  },
+  marrakech: {
+    label: "Marrakech-Safi",
+    coefficient: 0.95,
+    structureRange: [3000, 3600],
+    turnkeyRange: [4800, 7200],
+    plan: [
+      "Vérifier la capacité de pompage et de cure du béton face aux fortes amplitudes thermiques.",
+      "Prévoir une isolation de dalle et de toiture adaptée au climat semi-désertique.",
+      "Mobiliser des artisans locaux pour les finitions traditionnelles (tadelakt, zellige) si nécessaires.",
+    ],
+    insight:
+      "Les coûts structurels sont légèrement inférieurs mais la logistique matériaux doit être anticipée en saison haute.",
+  },
+  tanger: {
+    label: "Tanger-Tétouan-Al Hoceïma",
+    coefficient: 1.03,
+    structureRange: [3300, 3850],
+    turnkeyRange: [5200, 7600],
+    plan: [
+      "Faire contrôler la résistance au vent et à la corrosion saline pour les aciers en façade.",
+      "Déposer les autorisations auprès des agences urbaines littorales (Tanger Med, Tétouan).",
+      "Coordonner les raccordements VRD avec les opérateurs publics (RADEEL, Amendis).",
+    ],
+    insight:
+      "Contexte portuaire : disponibilité du béton industriel mais vigilance sur les délais d'import des composants spéciaux.",
+  },
+  oriental: {
+    label: "Oriental",
+    coefficient: 1.08,
+    structureRange: [3100, 3700],
+    turnkeyRange: [5000, 7400],
+    plan: [
+      "Budgéter le transport de matériaux depuis Fès ou Casablanca pour les lots spécifiques.",
+      "Consulter la direction régionale de l'urbanisme pour les projets hors périmètre municipal.",
+      "Sécuriser un fournisseur local pour l'eau et l'énergie durant le chantier (groupes électrogènes si besoin).",
+    ],
+    insight:
+      "Les coûts logistiques augmentent le prix global ; optimiser le phasage des approvisionnements réduit les surcoûts.",
+  },
+  sud: {
+    label: "Laâyoune/Guelmim & Sud",
+    coefficient: 1.1,
+    structureRange: [3200, 3800],
+    turnkeyRange: [5200, 7600],
+    plan: [
+      "Analyser la résistance des matériaux aux vents sableux et à la salinité (bétons additivés).",
+      "Prévoir des solutions de stockage d'eau et de production électrique autonomes pour le chantier.",
+      "Mobiliser un logisticien pour le transport maritime/terrestre des matériaux lourds.",
+    ],
+    insight:
+      "L'éloignement des grands centres nécessite un calendrier logistique détaillé et des marges de sécurité plus élevées.",
+  },
 };
 
 const typologyRates = {
@@ -76,6 +148,9 @@ function updateSimulation(event) {
   const breakdownContainer = document.getElementById("breakdown");
   const summaryOutput = document.getElementById("scenario-resume");
   const extrasList = document.getElementById("extra-options");
+  const regionalReference = document.getElementById("regional-reference");
+  const regionalInsight = document.getElementById("regional-insight");
+  const actionPlanList = document.getElementById("action-plan");
 
   if (!surface || surface < 50) {
     totalOutput.textContent = "Renseignez la surface pour démarrer.";
@@ -84,10 +159,21 @@ function updateSimulation(event) {
     breakdownContainer.innerHTML = "";
     summaryOutput.textContent = "Complétez le formulaire pour afficher un résumé personnalisé.";
     extrasList.innerHTML = "";
+    if (regionalReference) {
+      regionalReference.textContent =
+        "Sélectionnez une région et renseignez la surface pour afficher des repères budgétaires et un plan d'action.";
+    }
+    if (regionalInsight) {
+      regionalInsight.textContent = "";
+    }
+    if (actionPlanList) {
+      actionPlanList.innerHTML = "";
+    }
     return;
   }
 
   const regionKey = form.region.value;
+  const regionProfile = regionProfiles[regionKey];
   const levelsKey = form["levels"].value;
   const typologyKey = form.typologie.value;
   const fondationsKey = form.fondations.value;
@@ -99,7 +185,7 @@ function updateSimulation(event) {
 
   const structureBase = surface * typology.base;
   const adjustments =
-    regionCoefficients[regionKey] *
+    (regionProfile?.coefficient ?? 1) *
     levelCoefficients[levelsKey] *
     foundationCoefficients[fondationsKey] *
     structureCoefficients[structureKey] *
@@ -146,7 +232,7 @@ function updateSimulation(event) {
     breakdownContainer.append(dt, dd);
   });
 
-  const regionLabel = form.region.options[form.region.selectedIndex].text;
+  const regionLabel = regionProfile?.label ?? form.region.options[form.region.selectedIndex].text;
   const levelLabel = form.levels.options[form.levels.selectedIndex].text;
   const fondationsLabel = form.fondations.options[form.fondations.selectedIndex].text;
   const structureLabel = form.structure.options[form.structure.selectedIndex].text;
@@ -165,6 +251,28 @@ function updateSimulation(event) {
       const li = document.createElement("li");
       li.textContent = item;
       extrasList.append(li);
+    });
+  }
+
+  if (regionProfile && regionalReference) {
+    const [structureMin, structureMax] = regionProfile.structureRange;
+    const [turnkeyMin, turnkeyMax] = regionProfile.turnkeyRange;
+    regionalReference.textContent =
+      `Repère ${regionProfile.label} : ${formatCurrency(structureMin)} à ${formatCurrency(
+        structureMax
+      )} / m² pour le gros œuvre, ${formatCurrency(turnkeyMin)} à ${formatCurrency(turnkeyMax)} / m² en clé en main.`;
+  }
+
+  if (regionProfile && regionalInsight) {
+    regionalInsight.textContent = regionProfile.insight;
+  }
+
+  if (regionProfile && actionPlanList) {
+    actionPlanList.innerHTML = "";
+    regionProfile.plan.forEach((step) => {
+      const li = document.createElement("li");
+      li.textContent = step;
+      actionPlanList.append(li);
     });
   }
 }
