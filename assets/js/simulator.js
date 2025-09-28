@@ -123,6 +123,63 @@ const breakdownPercentages = {
   "Toiture & protections": 0.25,
 };
 
+const modelPresets = {
+  "modele-villa": {
+    region: "casablanca",
+    surface: 280,
+    levels: "r+1",
+    typologie: "villa",
+    fondations: "semelles",
+    structure: "portique",
+    dallage: "hourdis",
+    toiture: "terrasse",
+    honoraires: true,
+    vrd: true,
+    contingence: true,
+  },
+  "modele-riad": {
+    region: "marrakech",
+    surface: 320,
+    levels: "r+2",
+    typologie: "riad",
+    fondations: "radier",
+    structure: "voiles",
+    dallage: "dalle-pleine",
+    toiture: "terrasse",
+    honoraires: true,
+    vrd: true,
+    contingence: true,
+  },
+  "modele-eco": {
+    region: "rabat",
+    surface: 160,
+    levels: "r+1",
+    typologie: "maison-eco",
+    fondations: "semelles",
+    structure: "portique",
+    dallage: "poutrelles",
+    toiture: "terrasse",
+    honoraires: false,
+    vrd: true,
+    contingence: true,
+  },
+  "modele-immeuble": {
+    region: "casablanca",
+    surface: 480,
+    levels: "r+3",
+    typologie: "immeuble",
+    fondations: "pieux",
+    structure: "mixte",
+    dallage: "dalle-pleine",
+    toiture: "mixte",
+    honoraires: true,
+    vrd: true,
+    contingence: true,
+  },
+};
+
+let simulationForm;
+
 const currencyFormatter = new Intl.NumberFormat("fr-MA", {
   style: "currency",
   currency: "MAD",
@@ -138,7 +195,7 @@ function updateSimulation(event) {
     event.preventDefault();
   }
 
-  const form = document.querySelector("#simulation-form");
+  const form = simulationForm ?? document.querySelector("#simulation-form");
   if (!form) return;
 
   const surface = Number.parseFloat(form.surface.value);
@@ -277,11 +334,77 @@ function updateSimulation(event) {
   }
 }
 
+function applyPreset(modelKey, activeCard) {
+  const preset = modelPresets[modelKey];
+  const form = simulationForm ?? document.querySelector("#simulation-form");
+  if (!preset || !form) return;
+
+  if (preset.region) {
+    form.region.value = preset.region;
+  }
+  if (preset.surface) {
+    form.surface.value = preset.surface;
+  }
+  if (preset.levels) {
+    form.levels.value = preset.levels;
+  }
+  if (preset.typologie) {
+    form.typologie.value = preset.typologie;
+  }
+  if (preset.fondations) {
+    form.fondations.value = preset.fondations;
+  }
+  if (preset.structure) {
+    form.structure.value = preset.structure;
+  }
+  if (preset.dallage) {
+    form.dallage.value = preset.dallage;
+  }
+  if (preset.toiture) {
+    form.toiture.value = preset.toiture;
+  }
+
+  ["honoraires", "vrd", "contingence"].forEach((field) => {
+    if (typeof preset[field] === "boolean" && form[field]) {
+      form[field].checked = preset[field];
+    }
+  });
+
+  const cards = document.querySelectorAll(".model-card[data-model]");
+  cards.forEach((card) => {
+    card.setAttribute("aria-pressed", card === activeCard ? "true" : "false");
+  });
+
+  updateSimulation();
+}
+
 window.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("#simulation-form");
+  simulationForm = document.querySelector("#simulation-form");
+  const form = simulationForm;
   if (!form) return;
 
   form.addEventListener("submit", updateSimulation);
   form.addEventListener("input", updateSimulation);
-  updateSimulation();
+
+  const modelCards = document.querySelectorAll(".model-card[data-model]");
+  if (modelCards.length > 0) {
+    modelCards.forEach((card) => {
+      const modelKey = card.getAttribute("data-model");
+      const triggerPreset = () => applyPreset(modelKey, card);
+      card.addEventListener("click", triggerPreset);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === " " || event.key === "Enter") {
+          event.preventDefault();
+          triggerPreset();
+        }
+      });
+    });
+
+    const defaultCard = document.querySelector(".model-card[data-model]");
+    if (defaultCard) {
+      applyPreset(defaultCard.getAttribute("data-model"), defaultCard);
+    }
+  } else {
+    updateSimulation();
+  }
 });
