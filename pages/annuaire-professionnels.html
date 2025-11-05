@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annuaire Professionnels Construction Maroc 2025 | 500+ Entrepreneurs & Architectes - BuilderMaroc</title>
+    <meta name="description" content="Annuaire complet professionnels construction Maroc : 500+ entrepreneurs vérifiés, 200+ architectes certifiés. Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir. Avis clients, portfolio." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+      .annuaire-tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--surface-alt);
+      }
+
+      .annuaire-tab {
+        padding: 1rem 2rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s;
+      }
+
+      .annuaire-tab:hover {
+        color: var(--primary);
+      }
+
+      .annuaire-tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      .filter-section {
+        background: var(--surface);
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .filter-group label {
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .filter-group select,
+      .filter-group input {
+        padding: 0.6rem;
+        border: 1px solid #ddd;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+      }
+
+      .pros-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .pro-card {
+        background: var(--surface);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: all 0.2s;
+        border: 2px solid transparent;
+      }
+
+      .pro-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(12, 122, 100, 0.2);
+        border-color: var(--primary);
+      }
+
+      .pro-header {
+        padding: 1.5rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+      }
+
+      .pro-header h3 {
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .pro-type {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .pro-body {
+        padding: 1.5rem;
+      }
+
+      .pro-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .pro-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .pro-info-icon {
+        min-width: 20px;
+        color: var(--primary);
+      }
+
+      .pro-specialties {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .specialty-badge {
+        background: var(--surface-alt);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: var(--text);
+      }
+
+      .pro-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .stars {
+        color: #f59f35;
+        font-size: 1.1rem;
+      }
+
+      .rating-count {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .pro-certif {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .certif-badge {
+        background: var(--accent);
+        color: white;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .pro-actions {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .btn-contact {
+        flex: 1;
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.75rem;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .btn-contact:hover {
+        background: var(--primary-dark);
+      }
+
+      .btn-portfolio {
+        background: var(--surface-alt);
+        color: var(--primary);
+        border: 2px solid var(--primary);
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .btn-portfolio:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .verified-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        background: #10b981;
+        color: white;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+
+      .stats-overview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-box {
+        background: var(--surface);
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .stat-box-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-box-label {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container navbar">
+        <a href="../index.html" class="brand">BuilderMaroc</a>
+        <nav class="nav-links">
+          <a href="guide-construction.html">Guide A-Z</a>
+          <a href="catalogue-materiaux.html">Matériaux</a>
+          <a href="annuaire-professionnels.html" class="active">Professionnels</a>
+          <a href="simulation.html">Simulateur</a>
+          <a href="configurateur-3d.html">Configurateur 3D</a>
+        </nav>
+        <a class="btn btn-primary" href="simulation.html">Devis Express</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section banner">
+        <div class="container">
+          <span class="feature-badge">🚀 Phase 2 - Réseau Professionnel</span>
+          <h1>Annuaire Professionnels de la Construction au Maroc</h1>
+          <p>
+            Trouvez les meilleurs <strong>entrepreneurs</strong>, <strong>architectes</strong> et <strong>bureaux d'études</strong>
+            pour votre projet. Plus de 700 professionnels vérifiés avec avis clients, certifications
+            et portfolios détaillés. Casablanca, Rabat, Marrakech, Tanger, Fès, Agadir.
+          </p>
+        </div>
+      </section>
+
+      <div class="container">
+        <!-- Stats Overview -->
+        <div class="stats-overview">
+          <div class="stat-box">
+            <div class="stat-box-number">500+</div>
+            <div class="stat-box-label">Entrepreneurs Vérifiés</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-number">200+</div>
+            <div class="stat-box-label">Architectes Certifiés</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-number">4.6/5</div>
+            <div class="stat-box-label">Note Moyenne Globale</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-number">2,500+</div>
+            <div class="stat-box-label">Avis Clients Vérifiés</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="annuaire-tabs">
+          <button class="annuaire-tab active" onclick="switchTab('entrepreneurs')">
+            👷 Entrepreneurs (500+)
+          </button>
+          <button class="annuaire-tab" onclick="switchTab('architectes')">
+            📐 Architectes (200+)
+          </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-section">
+          <div class="filter-group">
+            <label for="filter-region">🗺️ Région</label>
+            <select id="filter-region">
+              <option value="">Toutes les régions</option>
+              <option value="Casablanca">Casablanca-Settat</option>
+              <option value="Rabat">Rabat-Salé-Kénitra</option>
+              <option value="Marrakech">Marrakech-Safi</option>
+              <option value="Tanger">Tanger-Tétouan</option>
+              <option value="Fès">Fès-Meknès</option>
+              <option value="Agadir">Agadir-Souss-Massa</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-specialty">🔨 Spécialité</label>
+            <select id="filter-specialty">
+              <option value="">Toutes les spécialités</option>
+              <option value="Gros œuvre">Gros œuvre</option>
+              <option value="Finitions">Finitions</option>
+              <option value="VRD">VRD & Terrassement</option>
+              <option value="Électricité">Électricité</option>
+              <option value="Plomberie">Plomberie</option>
+              <option value="Menuiserie">Menuiserie</option>
+              <option value="Peinture">Peinture</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="filter-rating">⭐ Note Minimum</label>
+            <select id="filter-rating">
+              <option value="">Toutes les notes</option>
+              <option value="4.5">4.5+ ⭐⭐⭐⭐⭐</option>
+              <option value="4">4+ ⭐⭐⭐⭐</option>
+              <option value="3.5">3.5+ ⭐⭐⭐</option>
+            </select>
+          </div>
+
+          <div class="filter-group" style="display: flex; align-items: end;">
+            <button class="btn btn-primary" onclick="applyFilters()" style="width: 100%;">
+              🔍 Rechercher
+            </button>
+          </div>
+        </div>
+
+        <!-- Professionals Grid -->
+        <div class="pros-grid" id="pros-grid"></div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>BuilderMaroc</h3>
+          <p>Annuaire professionnels construction Maroc. Réseau vérifié et certifié.</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../index.html">Accueil</a></li>
+            <li><a href="guide-construction.html">Guide A-Z</a></li>
+            <li><a href="catalogue-materiaux.html">Matériaux</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p>contact@buildermaroc.ma<br />Version 0.2.0 - Phase 2</p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2025 BuilderMaroc</div>
+    </footer>
+
+    <script>
+      // Mock Data
+      const entrepreneursData = [
+        {
+          nom: "Atlas Construction",
+          type: "Entreprise Générale",
+          ville: "Casablanca",
+          region: "Casablanca-Settat",
+          specialites: ["Gros œuvre", "Finitions", "VRD"],
+          rating: 4.8,
+          reviewCount: 156,
+          certifications: ["RGE", "ISO 9001"],
+          verified: true,
+          experience: "20 ans",
+          projets: "180+ projets réalisés",
+          email: "contact@atlasconstruction.ma",
+          tel: "+212 5XX XX XX 01"
+        },
+        {
+          nom: "Bâtisseur Moderne",
+          type: "Entreprise de Gros Œuvre",
+          ville: "Rabat",
+          region: "Rabat-Salé-Kénitra",
+          specialites: ["Gros œuvre", "Structure béton"],
+          rating: 4.6,
+          reviewCount: 89,
+          certifications: ["RPS 2011"],
+          verified: true,
+          experience: "15 ans",
+          projets: "120+ villas réalisées",
+          email: "contact@batisseurmoderne.ma",
+          tel: "+212 5XX XX XX 02"
+        },
+        {
+          nom: "Marocco Build Pro",
+          type: "Entreprise Générale",
+          ville: "Marrakech",
+          region: "Marrakech-Safi",
+          specialites: ["Gros œuvre", "Finitions", "Architecture traditionnelle"],
+          rating: 4.9,
+          reviewCount: 203,
+          certifications: ["ISO 9001", "Artisanat"],
+          verified: true,
+          experience: "25 ans",
+          projets: "250+ riads & villas",
+          email: "contact@maroccobuild.ma",
+          tel: "+212 5XX XX XX 03"
+        },
+        {
+          nom: "Tanger Construction Elite",
+          type: "Entreprise Générale",
+          ville: "Tanger",
+          region: "Tanger-Tétouan-Al Hoceïma",
+          specialites: ["Gros œuvre", "Normes sismiques", "VRD"],
+          rating: 4.7,
+          reviewCount: 134,
+          certifications: ["RPS 2011", "Zone sismique 3"],
+          verified: true,
+          experience: "18 ans",
+          projets: "160+ projets",
+          email: "contact@tangerelite.ma",
+          tel: "+212 5XX XX XX 04"
+        },
+        {
+          nom: "Fès Bâtiment Tradition",
+          type: "Entreprise Spécialisée",
+          ville: "Fès",
+          region: "Fès-Meknès",
+          specialites: ["Architecture traditionnelle", "Zellige", "Tadelakt"],
+          rating: 4.9,
+          reviewCount: 178,
+          certifications: ["Artisanat Fès", "UNESCO"],
+          verified: true,
+          experience: "30 ans",
+          projets: "200+ projets patrimoniaux",
+          email: "contact@festradition.ma",
+          tel: "+212 5XX XX XX 05"
+        },
+        {
+          nom: "Agadir Construction Plus",
+          type: "Entreprise Générale",
+          ville: "Agadir",
+          region: "Agadir-Souss-Massa",
+          specialites: ["Gros œuvre", "Normes sismiques", "Finitions"],
+          rating: 4.6,
+          reviewCount: 112,
+          certifications: ["RPS 2011", "Zone sismique 3"],
+          verified: true,
+          experience: "16 ans",
+          projets: "140+ villas touristiques",
+          email: "contact@agadirplus.ma",
+          tel: "+212 5XX XX XX 06"
+        }
+      ];
+
+      const architectesData = [
+        {
+          nom: "Cabinet Alami & Associés",
+          type: "Architecte DPLG",
+          ville: "Casablanca",
+          region: "Casablanca-Settat",
+          specialites: ["Architecture contemporaine", "Villas de luxe", "Immeubles R+3"],
+          rating: 4.9,
+          reviewCount: 87,
+          certifications: ["Ordre National Architectes", "DPLG France"],
+          verified: true,
+          experience: "22 ans",
+          projets: "150+ projets signés",
+          email: "cabinet@alami-architectes.ma",
+          tel: "+212 5XX XX XX 11"
+        },
+        {
+          nom: "Atelier d'Architecture Bennani",
+          type: "Architecte Urbaniste",
+          ville: "Rabat",
+          region: "Rabat-Salé-Kénitra",
+          specialites: ["Urbanisme", "Architecture durable", "Projets publics"],
+          rating: 4.8,
+          reviewCount: 64,
+          certifications: ["Ordre National Architectes", "RTCM Expert"],
+          verified: true,
+          experience: "18 ans",
+          projets: "100+ projets urbains",
+          email: "contact@bennani-atelier.ma",
+          tel: "+212 5XX XX XX 12"
+        },
+        {
+          nom: "Architecte El Fassi - Patrimoine",
+          type: "Architecte Spécialisé",
+          ville: "Fès",
+          region: "Fès-Meknès",
+          specialites: ["Architecture traditionnelle", "Restauration patrimoine", "Riads"],
+          rating: 5.0,
+          reviewCount: 92,
+          certifications: ["Ordre Architectes", "UNESCO Expert"],
+          verified: true,
+          experience: "28 ans",
+          projets: "180+ riads restaurés",
+          email: "contact@elfassi-architecte.ma",
+          tel: "+212 5XX XX XX 13"
+        },
+        {
+          nom: "Studio Architecture Moderne Marrakech",
+          type: "Architecte Contemporain",
+          ville: "Marrakech",
+          region: "Marrakech-Safi",
+          specialites: ["Architecture bioclimatique", "Villas écologiques", "Design moderne"],
+          rating: 4.7,
+          reviewCount: 71,
+          certifications: ["Ordre Architectes", "Architecture Passive"],
+          verified: true,
+          experience: "15 ans",
+          projets: "90+ villas design",
+          email: "studio@moderne-mkc.ma",
+          tel: "+212 5XX XX XX 14"
+        },
+        {
+          nom: "Cabinet Tazi Architectes",
+          type: "Architecte DPLG",
+          ville: "Tanger",
+          region: "Tanger-Tétouan-Al Hoceïma",
+          specialites: ["Architecture côtière", "Normes vents", "Villas vue mer"],
+          rating: 4.8,
+          reviewCount: 58,
+          certifications: ["Ordre Architectes", "RPS 2011 Expert"],
+          verified: true,
+          experience: "20 ans",
+          projets: "110+ villas côtières",
+          email: "cabinet@tazi-architectes.ma",
+          tel: "+212 5XX XX XX 15"
+        },
+        {
+          nom: "Architecte Benani - Agadir",
+          type: "Architecte Résidentiel",
+          ville: "Agadir",
+          region: "Agadir-Souss-Massa",
+          specialites: ["Résidences touristiques", "Architecture parasismique", "Design méditerranéen"],
+          rating: 4.6,
+          reviewCount: 49,
+          certifications: ["Ordre Architectes", "Normes Sismiques"],
+          verified: true,
+          experience: "14 ans",
+          projets: "75+ résidences",
+          email: "contact@benani-agadir.ma",
+          tel: "+212 5XX XX XX 16"
+        }
+      ];
+
+      let currentTab = 'entrepreneurs';
+      let currentData = entrepreneursData;
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', function() {
+        renderProfessionals();
+      });
+
+      function switchTab(tab) {
+        currentTab = tab;
+        currentData = tab === 'entrepreneurs' ? entrepreneursData : architectesData;
+
+        // Update tabs
+        document.querySelectorAll('.annuaire-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Update specialty filter options
+        updateSpecialtyOptions();
+
+        renderProfessionals();
+      }
+
+      function updateSpecialtyOptions() {
+        const select = document.getElementById('filter-specialty');
+
+        if (currentTab === 'entrepreneurs') {
+          select.innerHTML = `
+            <option value="">Toutes les spécialités</option>
+            <option value="Gros œuvre">Gros œuvre</option>
+            <option value="Finitions">Finitions</option>
+            <option value="VRD">VRD & Terrassement</option>
+            <option value="Électricité">Électricité</option>
+            <option value="Plomberie">Plomberie</option>
+            <option value="Menuiserie">Menuiserie</option>
+            <option value="Architecture traditionnelle">Architecture traditionnelle</option>
+          `;
+        } else {
+          select.innerHTML = `
+            <option value="">Toutes les spécialités</option>
+            <option value="Architecture contemporaine">Architecture contemporaine</option>
+            <option value="Architecture traditionnelle">Architecture traditionnelle</option>
+            <option value="Architecture durable">Architecture durable</option>
+            <option value="Architecture bioclimatique">Architecture bioclimatique</option>
+            <option value="Urbanisme">Urbanisme</option>
+            <option value="Restauration patrimoine">Restauration patrimoine</option>
+          `;
+        }
+      }
+
+      function renderProfessionals() {
+        const grid = document.getElementById('pros-grid');
+        grid.innerHTML = '';
+
+        let filtered = [...currentData];
+
+        // Apply filters
+        const regionFilter = document.getElementById('filter-region').value;
+        const specialtyFilter = document.getElementById('filter-specialty').value;
+        const ratingFilter = parseFloat(document.getElementById('filter-rating').value) || 0;
+
+        if (regionFilter) {
+          filtered = filtered.filter(p => p.region.includes(regionFilter));
+        }
+
+        if (specialtyFilter) {
+          filtered = filtered.filter(p => p.specialites.some(s => s.includes(specialtyFilter)));
+        }
+
+        if (ratingFilter) {
+          filtered = filtered.filter(p => p.rating >= ratingFilter);
+        }
+
+        // Render cards
+        filtered.forEach(pro => {
+          const card = createProCard(pro);
+          grid.appendChild(card);
+        });
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);"><h3>Aucun professionnel trouvé</h3><p>Essayez de modifier vos critères de recherche.</p></div>';
+        }
+      }
+
+      function createProCard(pro) {
+        const card = document.createElement('article');
+        card.className = 'pro-card';
+
+        const stars = '⭐'.repeat(Math.floor(pro.rating));
+
+        card.innerHTML = `
+          <div class="pro-header">
+            <h3>
+              ${pro.nom}
+              ${pro.verified ? '<span class="verified-badge">✓ Vérifié</span>' : ''}
+            </h3>
+            <div class="pro-type">${pro.type}</div>
+          </div>
+
+          <div class="pro-body">
+            <div class="pro-rating">
+              <span class="stars">${stars}</span>
+              <span><strong>${pro.rating}</strong>/5</span>
+              <span class="rating-count">(${pro.reviewCount} avis)</span>
+            </div>
+
+            <div class="pro-info">
+              <div class="pro-info-item">
+                <span class="pro-info-icon">📍</span>
+                <span>${pro.ville}, ${pro.region}</span>
+              </div>
+              <div class="pro-info-item">
+                <span class="pro-info-icon">📅</span>
+                <span>${pro.experience} d'expérience</span>
+              </div>
+              <div class="pro-info-item">
+                <span class="pro-info-icon">✅</span>
+                <span>${pro.projets}</span>
+              </div>
+            </div>
+
+            <div class="pro-specialties">
+              ${pro.specialites.map(s => `<span class="specialty-badge">${s}</span>`).join('')}
+            </div>
+
+            <div class="pro-certif">
+              ${pro.certifications.map(c => `<span class="certif-badge">🏆 ${c}</span>`).join('')}
+            </div>
+
+            <div class="pro-actions">
+              <button class="btn-contact" onclick="contactPro('${pro.nom}')">📞 Contacter</button>
+              <button class="btn-portfolio" onclick="viewPortfolio('${pro.nom}')">📂 Portfolio</button>
+            </div>
+          </div>
+        `;
+
+        return card;
+      }
+
+      function applyFilters() {
+        renderProfessionals();
+      }
+
+      function contactPro(nom) {
+        alert(`Fonctionnalité de contact en développement Phase 3.\n\nPour contacter ${nom}, utilisez les coordonnées affichées ou notre formulaire de demande de devis.`);
+      }
+
+      function viewPortfolio(nom) {
+        alert(`Portfolio de ${nom} disponible en Phase 3.\n\nConsultez les projets réalisés, photos, plans et références clients.`);
+      }
+
+      // Auto-apply filters on change
+      document.getElementById('filter-region').addEventListener('change', applyFilters);
+      document.getElementById('filter-specialty').addEventListener('change', applyFilters);
+      document.getElementById('filter-rating').addEventListener('change', applyFilters);
+    </script>
+  </body>
+</html>
