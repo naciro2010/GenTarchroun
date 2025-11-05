@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur & Configurateur 3D - DarSimul Maroc</title>
+  <meta name="description" content="Simulateur de coût + Configurateur 3D interactif avec spécifications techniques détaillées pour votre projet de construction au Maroc" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <style>
+    /* ONGLETS NAVIGATION */
+    .tabs-container {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 0.5rem;
+      margin: 2rem 0;
+      display: flex;
+      gap: 0.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 1rem 2rem;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+      color: var(--text);
+    }
+
+    .tab-button:hover {
+      background: var(--surface-alt);
+    }
+
+    .tab-button.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* PANNEAU 3D */
+    .viewer-3d-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: var(--radius-md);
+      min-height: 500px;
+      position: relative;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+
+    #viewer-3d {
+      width: 100%;
+      height: 600px;
+      border-radius: var(--radius-md);
+    }
+
+    .viewer-controls {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 0.75rem 1rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 10;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .viewer-controls button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .viewer-controls button:hover {
+      background: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    /* PANNEAU SPECS TECHNIQUES */
+    .specs-panel {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin: 2rem 0;
+      box-shadow: var(--shadow);
+    }
+
+    .specs-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--surface-alt);
+    }
+
+    .specs-section:last-child {
+      border-bottom: none;
+    }
+
+    .specs-section h3 {
+      color: var(--primary);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .spec-card {
+      background: var(--surface-alt);
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--primary);
+    }
+
+    .spec-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .spec-detail {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .spec-detail strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .explication-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .explication-box::before {
+      content: "💡 ";
+      font-size: 1.2rem;
+    }
+
+    .explication-box p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #856404;
+    }
+
+    /* MATÉRIAUX */
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .material-card {
+      background: var(--surface-alt);
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+
+    .material-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .material-card.selected {
+      border-color: var(--secondary);
+      background: linear-gradient(135deg, var(--secondary) 0%, #e08a1f 100%);
+      color: white;
+    }
+
+    .material-card h5 {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .material-card p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin: 0.25rem 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .tabs-container {
+        flex-direction: column;
+      }
+
+      .tab-button {
+        padding: 0.75rem 1rem;
+      }
+
+      #viewer-3d {
+        height: 400px;
+      }
+
+      .viewer-controls {
+        bottom: 1rem;
+        padding: 0.5rem;
+        gap: 0.35rem;
+      }
+
+      .viewer-controls button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="../index.html" class="brand">DarSimul Maroc</a>
+      <nav class="nav-links">
+        <a href="plan-action.html">Plan d'action</a>
+        <a href="administratif.html">Documents</a>
+        <a href="bareme-structure.html">Barèmes</a>
+        <a href="simulation-3d.html" class="active">Simulation 3D</a>
+      </nav>
+      <a class="btn btn-primary" href="#resultats">Voir l'estimation</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="section banner">
+      <div class="container">
+        <h1>🏗️ Simulateur & Configurateur 3D Complet</h1>
+        <p>
+          Plateforme intégrée combinant simulation de coût précise et visualisation 3D interactive.
+          Explorez 10 modèles pré-définis avec spécifications techniques détaillées (types d'aciers, diamètres, bétons).
+          Chaque élément est expliqué pour comprendre votre projet de A à Z.
+        </p>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ONGLETS NAVIGATION -->
+      <div class="tabs-container">
+        <button class="tab-button active" data-tab="simulation">
+          📊 Simulation de Coût
+        </button>
+        <button class="tab-button" data-tab="configurateur">
+          🎨 Configurateur 3D
+        </button>
+        <button class="tab-button" data-tab="specifications">
+          📐 Spécifications Techniques
+        </button>
+        <button class="tab-button" data-tab="materiaux">
+          🧱 Bibliothèque Matériaux (150+)
+        </button>
+      </div>
+
+      <!-- ONGLET 1: SIMULATION COÛT -->
+      <div id="tab-simulation" class="tab-content active">
+        <form id="simulation-form" class="simulation-form" novalidate>
+          <section class="section">
+            <h2 class="section-title">Informations générales</h2>
+            <div class="form-block">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="region">Région du projet (Données 2025)</label>
+                  <select id="region" name="region">
+                    <option value="casablanca">Casablanca-Settat (4500-5500 MAD/m²)</option>
+                    <option value="rabat">Rabat-Salé-Kénitra (4800-5800 MAD/m²)</option>
+                    <option value="marrakech">Marrakech-Safi (3500-4500 MAD/m²)</option>
+                    <option value="tanger">Tanger-Tétouan-Al Hoceïma (4200-5200 MAD/m²)</option>
+                    <option value="fes">Fès-Meknès (3200-4200 MAD/m²)</option>
+                    <option value="agadir">Agadir-Souss-Massa (3800-4800 MAD/m²)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="surface">Surface totale (m²)</label>
+                  <input type="number" id="surface" name="surface" placeholder="Ex. 240" min="50" required />
+                </div>
+                <div class="form-group">
+                  <label for="levels">Nombre de niveaux</label>
+                  <select id="levels" name="levels">
+                    <option value="rdc">RDC</option>
+                    <option value="r+1">R+1</option>
+                    <option value="r+2">R+2</option>
+                    <option value="r+3">R+3</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="typologie">Typologie</label>
+                  <select id="typologie" name="typologie">
+                    <option value="villa">Villa contemporaine</option>
+                    <option value="riad">Riad traditionnel</option>
+                    <option value="maison-eco">Maison économique</option>
+                    <option value="immeuble">Immeuble locatif</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Caractéristiques structurelles</h2>
+            <div class="form-block">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="fondations">Type de fondations</label>
+                  <select id="fondations" name="fondations">
+                    <option value="semelles">Semelles isolées</option>
+                    <option value="radier">Radier général</option>
+                    <option value="pieux">Pieux & longrines</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="structure">Structure verticale</label>
+                  <select id="structure" name="structure">
+                    <option value="portique">Portiques béton armé</option>
+                    <option value="voiles">Voiles & poteaux BA</option>
+                    <option value="mixte">Structure mixte acier-béton</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="dallage">Type de plancher</label>
+                  <select id="dallage" name="dallage">
+                    <option value="hourdis">Hourdis béton</option>
+                    <option value="dalle-pleine">Dalle pleine</option>
+                    <option value="poutrelles">Poutrelles-hourdis</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="toiture">Système de toiture</label>
+                  <select id="toiture" name="toiture">
+                    <option value="terrasse">Terrasse accessible</option>
+                    <option value="inclinee">Charpente inclinée</option>
+                    <option value="mixte">Mixte terrasse/inclinée</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Options d'ajustement</h2>
+            <div class="form-block">
+              <div class="option-list">
+                <label class="option-card">
+                  <input type="checkbox" id="honoraires" name="honoraires" />
+                  <span>
+                    <strong>Inclure les honoraires de maîtrise d'œuvre</strong>
+                    <small>(+7 % du montant structurel)</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="checkbox" id="vrd" name="vrd" />
+                  <span>
+                    <strong>Ajouter une réserve VRD & raccordements</strong>
+                    <small>(+400 MAD / m²)</small>
+                  </span>
+                </label>
+                <label class="option-card">
+                  <input type="checkbox" id="contingence" name="contingence" checked />
+                  <span>
+                    <strong>Marge imprévus</strong>
+                    <small>(+5 % – activée par défaut)</small>
+                  </span>
+                </label>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Calculer l'estimation</button>
+              </div>
+            </div>
+          </section>
+        </form>
+
+        <!-- RÉSULTATS SIMULATION -->
+        <section id="resultats" class="section results" aria-live="polite">
+          <h2 class="section-title">Résultats de la simulation</h2>
+          <div class="results-grid">
+            <article class="results-card">
+              <h3>Montant global estimé</h3>
+              <p class="result-figure" id="total-estimate">Renseignez la surface pour démarrer.</p>
+              <p class="result-range" id="range-estimate"></p>
+              <p class="result-note" id="per-m2"></p>
+            </article>
+            <article class="results-card">
+              <h3>Répartition par poste</h3>
+              <dl class="breakdown" id="breakdown"></dl>
+              <p class="result-note">Hypothèses: 30% fondations, 45% élévations, 25% toiture.</p>
+            </article>
+            <article class="results-card">
+              <h3>Résumé du scénario</h3>
+              <p id="scenario-resume">Complétez le formulaire.</p>
+              <ul id="extra-options" class="result-list"></ul>
+            </article>
+            <article class="results-card">
+              <h3>Plan d'action régional</h3>
+              <p class="result-note" id="regional-reference"></p>
+              <ol id="action-plan" class="result-list numbered"></ol>
+              <p class="result-note" id="regional-insight"></p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- ONGLET 2: CONFIGURATEUR 3D -->
+      <div id="tab-configurateur" class="tab-content">
+        <section class="section">
+          <h2 class="section-title">Visualisation 3D Interactive</h2>
+
+          <div class="explication-box">
+            <p><strong>Configurateur 3D avec Three.js:</strong> Sélectionnez un modèle ci-dessous pour le visualiser en 3D. Utilisez la souris pour rotation/zoom. Chaque modèle inclut des spécifications techniques complètes.</p>
+          </div>
+
+          <!-- Sélection modèles -->
+          <div class="materials-grid" style="margin-bottom: 2rem;">
+            <div class="material-card selected" data-model="villa-r1" onclick="loadModel3D('villa-r1')">
+              <h5>🏡 Villa R+1 Contemporaine</h5>
+              <p>240 m² • 4 chambres</p>
+              <p><strong>1,248,000 MAD</strong></p>
+            </div>
+            <div class="material-card" data-model="riad-patio" onclick="loadModel3D('riad-patio')">
+              <h5>🏛️ Riad Traditionnel</h5>
+              <p>180 m² • Patio central</p>
+              <p><strong>876,000 MAD</strong></p>
+            </div>
+            <div class="material-card" data-model="villa-r2" onclick="loadModel3D('villa-r2')">
+              <h5>🏢 Villa R+2 Standing</h5>
+              <p>320 m² • 5 chambres</p>
+              <p><strong>1,856,000 MAD</strong></p>
+            </div>
+            <div class="material-card" data-model="maison-eco" onclick="loadModel3D('maison-eco')">
+              <h5>🌿 Maison Économique</h5>
+              <p>120 m² • 3 chambres</p>
+              <p><strong>492,000 MAD</strong></p>
+            </div>
+            <div class="material-card" data-model="immeuble-r3" onclick="loadModel3D('immeuble-r3')">
+              <h5>🏘️ Immeuble R+3 Locatif</h5>
+              <p>400 m² • 6 appartements</p>
+              <p><strong>2,464,000 MAD</strong></p>
+            </div>
+          </div>
+
+          <!-- Visionneuse 3D -->
+          <div class="viewer-3d-container">
+            <div id="viewer-3d"></div>
+            <div class="viewer-controls">
+              <button onclick="configurator.setLightingMode('day')">☀️ Jour</button>
+              <button onclick="configurator.setLightingMode('sunset')">🌅 Crépuscule</button>
+              <button onclick="configurator.setLightingMode('night')">🌙 Nuit</button>
+              <button onclick="configurator.exportPNG()">📸 PNG</button>
+              <button onclick="configurator.exportJPG()">🖼️ JPG</button>
+              <button onclick="exportCurrentPDF()">📄 PDF</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ONGLET 3: SPÉCIFICATIONS TECHNIQUES -->
+      <div id="tab-specifications" class="tab-content">
+        <section class="section">
+          <h2 class="section-title">📐 Spécifications Techniques Détaillées</h2>
+
+          <div id="specs-content">
+            <!-- Contenu dynamique selon modèle sélectionné -->
+            <p class="result-note">Sélectionnez un modèle dans l'onglet "Configurateur 3D" pour afficher ses spécifications techniques complètes.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- ONGLET 4: MATÉRIAUX -->
+      <div id="tab-materiaux" class="tab-content">
+        <section class="section">
+          <h2 class="section-title">🧱 Bibliothèque Complète de Matériaux (150+)</h2>
+
+          <div class="explication-box">
+            <p><strong>Base de données exhaustive:</strong> Plus de 150 matériaux classés par catégorie avec explications techniques, prix, usages et fournisseurs locaux marocains.</p>
+          </div>
+
+          <div id="materials-content">
+            <!-- Contenu matériaux chargé dynamiquement -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <h3>DarSimul Maroc</h3>
+        <p>Plateforme complète de simulation et visualisation 3D pour la construction au Maroc.</p>
+      </div>
+      <div>
+        <h4>En savoir plus</h4>
+        <ul>
+          <li><a href="plan-action.html">Plan d'action</a></li>
+          <li><a href="administratif.html">Procédures</a></li>
+          <li><a href="bareme-structure.html">Barème structurel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© <span id="year"></span> DarSimul Maroc — Tous droits réservés.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../assets/js/simulator.js"></script>
+  <script src="../assets/js/configurator-3d.js"></script>
+  <script src="../assets/js/configurator-3d-engine.js"></script>
+
+  <script>
+    // Gestion des onglets
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.dataset.tab;
+
+        // Désactiver tous
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        // Activer sélectionné
+        button.classList.add('active');
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+      });
+    });
+
+    // Initialiser configurateur 3D
+    let configurator;
+    let currentModelId = 'villa-r1';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      configurator = new Configurator3D('viewer-3d');
+      configurator.loadModel('villa-r1');
+      displaySpecifications('villa-r1');
+      loadMaterialsLibrary();
+    });
+
+    // Charger modèle 3D
+    function loadModel3D(modelId) {
+      currentModelId = modelId;
+      configurator.loadModel(modelId);
+      displaySpecifications(modelId);
+
+      // Highlight card
+      document.querySelectorAll('[data-model]').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.querySelector(`[data-model="${modelId}"]`).classList.add('selected');
+    }
+
+    // Afficher spécifications
+    function displaySpecifications(modelId) {
+      const model = buildingModels[modelId];
+      if (!model) return;
+
+      const container = document.getElementById('specs-content');
+      let html = `
+        <div class="specs-panel">
+          <h2>${model.nom}</h2>
+          <p style="font-size: 1.1rem; margin-bottom: 2rem;">${model.description}</p>
+          <div class="specs-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 2rem;">
+            <div class="spec-card">
+              <h4>Surface</h4>
+              <div class="spec-detail"><strong>${model.surface} m²</strong></div>
+            </div>
+            <div class="spec-card">
+              <h4>Niveaux</h4>
+              <div class="spec-detail"><strong>${model.niveaux}</strong></div>
+            </div>
+            <div class="spec-card">
+              <h4>Chambres</h4>
+              <div class="spec-detail"><strong>${model.chambres || 'N/A'}</strong></div>
+            </div>
+            <div class="spec-card">
+              <h4>Estimation</h4>
+              <div class="spec-detail"><strong>${model.estimation.toLocaleString('fr-MA')} MAD</strong></div>
+            </div>
+          </div>
+      `;
+
+      const specs = model.specifications;
+
+      // FONDATIONS
+      if (specs.fondations) {
+        html += `
+          <div class="specs-section">
+            <h3>🏗️ FONDATIONS</h3>
+            <div class="explication-box">
+              <p><strong>${specs.fondations.type}:</strong> ${specs.fondations.explication}</p>
+            </div>
+            <div class="specs-grid">
+              <div class="spec-card">
+                <h4>Dimensions</h4>
+                ${specs.fondations.dimensions ? `<div class="spec-detail">${specs.fondations.dimensions}</div>` : ''}
+                ${specs.fondations.profondeur ? `<div class="spec-detail"><strong>Profondeur:</strong> ${specs.fondations.profondeur}</div>` : ''}
+                ${specs.fondations.epaisseur ? `<div class="spec-detail"><strong>Épaisseur:</strong> ${specs.fondations.epaisseur}</div>` : ''}
+              </div>
+              <div class="spec-card">
+                <h4>⚙️ Ferraillage (Aciers)</h4>
+                <div class="spec-detail"><strong>Type:</strong> ${specs.fondations.ferraillage.acierType || 'HA'}</div>
+                <div class="spec-detail"><strong>Diamètre:</strong> ${specs.fondations.ferraillage.diametre || specs.fondations.ferraillage.longitudinal}</div>
+                <div class="spec-detail" style="font-size: 0.85rem; color: #666;">
+                  💡 ${specs.fondations.ferraillage.explication || specs.fondations.ferraillage.description}
+                </div>
+              </div>
+              <div class="spec-card">
+                <h4>🏗️ Béton</h4>
+                <div class="spec-detail"><strong>Dosage:</strong> ${specs.fondations.beton.dosage}</div>
+                <div class="spec-detail"><strong>Résistance:</strong> ${specs.fondations.beton.resistance}</div>
+                <div class="spec-detail"><strong>Volume:</strong> ${specs.fondations.beton.volume}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // STRUCTURE
+      if (specs.structure) {
+        html += `
+          <div class="specs-section">
+            <h3>🏢 STRUCTURE VERTICALE</h3>
+            <div class="explication-box">
+              <p><strong>${specs.structure.type}:</strong> ${specs.structure.explication}</p>
+            </div>
+            <div class="specs-grid">
+        `;
+
+        if (specs.structure.poteaux) {
+          html += `
+            <div class="spec-card">
+              <h4>Poteaux</h4>
+              <div class="spec-detail"><strong>Section:</strong> ${specs.structure.poteaux.section}</div>
+              <div class="spec-detail"><strong>Hauteur:</strong> ${specs.structure.poteaux.hauteur}</div>
+              <div class="spec-detail"><strong>Nombre:</strong> ${specs.structure.poteaux.nombre}</div>
+              <div class="spec-detail" style="margin-top: 0.5rem;">
+                <strong>Ferraillage:</strong><br/>
+                - Long: ${specs.structure.poteaux.ferraillage.longitudinal}<br/>
+                - Trans: ${specs.structure.poteaux.ferraillage.transversal}
+              </div>
+            </div>
+          `;
+        }
+
+        if (specs.structure.poutres) {
+          html += `
+            <div class="spec-card">
+              <h4>Poutres</h4>
+              <div class="spec-detail"><strong>Section:</strong> ${specs.structure.poutres.section}</div>
+              <div class="spec-detail"><strong>Portée:</strong> ${specs.structure.poutres.portee}</div>
+              <div class="spec-detail" style="margin-top: 0.5rem;">
+                <strong>Ferraillage:</strong><br/>
+                - Sup: ${specs.structure.poutres.ferraillage.superieur}<br/>
+                - Inf: ${specs.structure.poutres.ferraillage.inferieur}
+              </div>
+              <div class="spec-detail" style="font-size: 0.85rem; color: #666;">
+                💡 ${specs.structure.poutres.ferraillage.explication}
+              </div>
+            </div>
+          `;
+        }
+
+        html += `
+            </div>
+          </div>
+        `;
+      }
+
+      // PLANCHERS
+      if (specs.planchers) {
+        html += `
+          <div class="specs-section">
+            <h3>🏗️ PLANCHERS</h3>
+            <div class="explication-box">
+              <p><strong>${specs.planchers.type}:</strong> ${specs.planchers.explication}</p>
+            </div>
+            <div class="specs-grid">
+              <div class="spec-card">
+                <h4>Caractéristiques</h4>
+                <div class="spec-detail"><strong>Épaisseur:</strong> ${specs.planchers.epaisseur || 'Variable'}</div>
+                <div class="spec-detail"><strong>Charge:</strong> ${specs.planchers.charge}</div>
+                <div class="spec-detail"><strong>Portée:</strong> ${specs.planchers.portee}</div>
+              </div>
+              <div class="spec-card">
+                <h4>Composition</h4>
+                ${specs.planchers.composition ? specs.planchers.composition.map(c => `<div class="spec-detail">• ${c}</div>`).join('') : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // TOITURE
+      if (specs.toiture) {
+        html += `
+          <div class="specs-section">
+            <h3>🏠 TOITURE</h3>
+            <div class="explication-box">
+              <p><strong>${specs.toiture.type}:</strong> ${specs.toiture.explication}</p>
+            </div>
+            ${specs.toiture.etancheite ? `
+              <div class="spec-card">
+                <h4>Système d'étanchéité (de bas en haut)</h4>
+                ${specs.toiture.etancheite.map((e, i) => `<div class="spec-detail">${e}</div>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      html += `</div>`;
+      container.innerHTML = html;
+    }
+
+    // Charger bibliothèque matériaux
+    function loadMaterialsLibrary() {
+      const container = document.getElementById('materials-content');
+      let html = '';
+
+      // Catégorie Bétons
+      html += `
+        <div class="specs-section">
+          <h3>🏗️ Bétons et Mortiers</h3>
+          <p style="color: #666; margin-bottom: 1rem;">Matériaux de base pour structure et maçonnerie</p>
+          <div class="materials-grid">
+            <div class="material-card">
+              <h5>Béton C20/25</h5>
+              <p>Standard fondations</p>
+              <p><strong>300 kg/m³</strong></p>
+              <p>Résistance: 20 MPa</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Béton de base pour fondations et dallages (résistance à 28 jours)</p>
+            </div>
+            <div class="material-card">
+              <h5>Béton C25/30</h5>
+              <p>Béton armé courant</p>
+              <p><strong>350 kg/m³</strong></p>
+              <p>Résistance: 25 MPa</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Pour poteaux, poutres, planchers, voiles structuraux</p>
+            </div>
+            <div class="material-card">
+              <h5>Béton C30/37 HP</h5>
+              <p>Haute performance</p>
+              <p><strong>400 kg/m³</strong></p>
+              <p>Résistance: 30 MPa</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Immeubles élevés, pieux, structures sollicitées</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h3>⚙️ Aciers pour Béton Armé</h3>
+          <p style="color: #666; margin-bottom: 1rem;">Armatures métalliques qui renforcent le béton en traction</p>
+          <div class="materials-grid">
+            <div class="material-card">
+              <h5>Acier HA Fe500</h5>
+              <p>Haute Adhérence</p>
+              <p><strong>7 500 MAD/tonne</strong></p>
+              <p>Ø6 à Ø32mm</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Barres nervurées crantées pour accroche optimale au béton. HA = nervures garantissent la liaison béton/acier</p>
+            </div>
+            <div class="material-card">
+              <h5>Treillis Soudés</h5>
+              <p>Panneaux ST15/ST25</p>
+              <p><strong>45 MAD/m²</strong></p>
+              <p>Maillage 15x15cm</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Grillage métallique soudé pour dalles. Pose rapide, économie de main d'œuvre</p>
+            </div>
+            <div class="material-card">
+              <h5>Cadres & Épingles</h5>
+              <p>Ø6, Ø8, Ø10mm</p>
+              <p><strong>9 MAD/kg</strong></p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Armatures transversales en rectangle qui empêchent flambement et reprennent l'effort tranchant</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h3>🧱 Blocs et Briques</h3>
+          <p style="color: #666; margin-bottom: 1rem;">Éléments de maçonnerie pour murs et cloisons</p>
+          <div class="materials-grid">
+            <div class="material-card">
+              <h5>Parpaing creux 20cm</h5>
+              <p>20x20x50cm • B40</p>
+              <p><strong>6.5 MAD/unité</strong></p>
+              <p>65 MAD/m²</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Bloc béton avec alvéoles. Standard pour murs porteurs extérieurs</p>
+            </div>
+            <div class="material-card">
+              <h5>Brique creuse 8 trous</h5>
+              <p>20x20x30cm</p>
+              <p><strong>5.2 MAD/unité</strong></p>
+              <p>Isolation phonique++</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Brique terre cuite alvéolée. Légère, bonne isolation acoustique</p>
+            </div>
+            <div class="material-card">
+              <h5>Brique de parement</h5>
+              <p>Façades vues</p>
+              <p><strong>180 MAD/m²</strong></p>
+              <p>4 couleurs</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Brique décorative sans enduit. Rouge, ocre, beige, sablé</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="specs-section">
+          <h3>🌡️ Isolants Thermiques</h3>
+          <p style="color: #666; margin-bottom: 1rem;">Matériaux réduisant les transferts de chaleur</p>
+          <div class="materials-grid">
+            <div class="material-card">
+              <h5>Polystyrène Expansé</h5>
+              <p>PSE blanc économique</p>
+              <p><strong>85 MAD/m²</strong> (10cm)</p>
+              <p>R=2.85</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Panneaux en billes expansées. Léger, économique. R = résistance thermique</p>
+            </div>
+            <div class="material-card">
+              <h5>Laine de Roche</h5>
+              <p>Incombustible A1</p>
+              <p><strong>120 MAD/m²</strong> (10cm)</p>
+              <p>R=2.8</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Fibres de roches volcaniques. Isolation + acoustique + résistance feu</p>
+            </div>
+            <div class="material-card">
+              <h5>Polyuréthane PIR</h5>
+              <p>Haute performance</p>
+              <p><strong>180 MAD/m²</strong> (10cm)</p>
+              <p>R=4.5</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Meilleure performance épaisseur. Cellules fermées, mince mais très efficace</p>
+            </div>
+            <div class="material-card">
+              <h5>Liège Expansé</h5>
+              <p>Naturel écologique</p>
+              <p><strong>210 MAD/m²</strong> (10cm)</p>
+              <p>Production locale Maroc</p>
+              <p style="font-size: 0.75rem; margin-top: 0.5rem;">💡 Issu écorce chêne-liège. Renouvelable, durable 50+ ans, forêts Mamora</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="explication-box" style="margin-top: 2rem;">
+          <p><strong>Note importante:</strong> Les prix indiqués sont estimatifs 2025 et peuvent varier selon la région, la quantité et le fournisseur. Consulter toujours plusieurs devis. Les explications techniques visent à démystifier les termes du BTP pour les maîtres d'ouvrage.</p>
+        </div>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // Export PDF du modèle courant
+    function exportCurrentPDF() {
+      const model = buildingModels[currentModelId];
+      if (!model) return;
+      exportPDF(model, {});
+    }
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="../assets/js/mobile-menu.js"></script>
+</body>
+</html>
