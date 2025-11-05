@@ -232,6 +232,17 @@
         margin-bottom: 1rem;
       }
 
+      @media (max-width: 1200px) {
+        .configurator-container {
+          grid-template-columns: 250px 1fr 280px;
+          gap: 1rem;
+        }
+
+        .config-panel {
+          padding: 1.25rem;
+        }
+      }
+
       @media (max-width: 1024px) {
         .configurator-container {
           grid-template-columns: 1fr;
@@ -239,6 +250,95 @@
 
         .config-panel {
           max-height: none;
+        }
+
+        .viewer-3d {
+          min-height: 400px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .configurator-container {
+          gap: 1rem;
+          margin: 1rem 0;
+        }
+
+        .viewer-3d {
+          min-height: 350px;
+        }
+
+        .viewer-placeholder h2 {
+          font-size: 1.5rem;
+        }
+
+        .viewer-placeholder p {
+          font-size: 0.9rem;
+        }
+
+        .viewer-controls {
+          bottom: 1rem;
+          padding: 0.5rem 0.75rem;
+          gap: 0.35rem;
+        }
+
+        .viewer-controls button {
+          padding: 0.4rem 0.75rem;
+          font-size: 0.8rem;
+        }
+
+        .cost-amount {
+          font-size: 1.5rem;
+        }
+
+        .material-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .configurator-container {
+          margin: 0.5rem 0;
+        }
+
+        .config-panel {
+          padding: 1rem;
+        }
+
+        .viewer-3d {
+          min-height: 280px;
+          border-radius: var(--radius-sm);
+        }
+
+        .viewer-placeholder h2 {
+          font-size: 1.25rem;
+        }
+
+        .viewer-controls {
+          flex-wrap: wrap;
+          width: 90%;
+        }
+
+        .viewer-controls button {
+          flex: 1 1 auto;
+          font-size: 0.75rem;
+          padding: 0.35rem 0.5rem;
+        }
+
+        .model-card {
+          padding: 0.6rem;
+        }
+
+        .model-card h4 {
+          font-size: 0.9rem;
+        }
+
+        .cost-summary {
+          padding: 1.25rem;
+        }
+
+        .feature-badge {
+          font-size: 0.75rem;
+          padding: 0.2rem 0.6rem;
         }
       }
     </style>
@@ -595,5 +695,6 @@
         console.log('Region changed:', this.value);
       });
     </script>
-  </body>
+    <script src="../assets/js/mobile-menu.js"></script>
+</body>
 </html>
