@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configurateur 3D - BuilderMaroc | Visualisez votre projet en temps réel</title>
+    <meta name="description" content="Configurateur 3D interactif pour visualiser votre projet de construction au Maroc. Modèles pré-définis, personnalisation pièces, matériaux, rendu temps réel." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+      .configurator-container {
+        display: grid;
+        grid-template-columns: 300px 1fr 320px;
+        gap: 1.5rem;
+        min-height: 70vh;
+        margin: 2rem 0;
+      }
+
+      .config-panel {
+        background: var(--surface);
+        border-radius: var(--radius-md);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .config-panel h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 0.5rem;
+      }
+
+      .viewer-3d {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        box-shadow: var(--shadow);
+        min-height: 600px;
+      }
+
+      .viewer-placeholder {
+        text-align: center;
+        color: white;
+        padding: 2rem;
+      }
+
+      .viewer-placeholder h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .viewer-controls {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0.75rem 1rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+
+      .viewer-controls button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+      }
+
+      .viewer-controls button:hover {
+        background: var(--primary-dark);
+        transform: scale(1.05);
+      }
+
+      .config-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .config-section label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .config-section select,
+      .config-section input[type="number"] {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ddd;
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+      }
+
+      .model-card {
+        border: 2px solid #e0e0e0;
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .model-card:hover {
+        border-color: var(--primary);
+        background: var(--surface-alt);
+      }
+
+      .model-card.active {
+        border-color: var(--primary);
+        background: var(--surface-alt);
+      }
+
+      .model-card h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .model-card p {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .material-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .material-chip {
+        padding: 0.4rem 0.6rem;
+        background: var(--surface-alt);
+        border-radius: var(--radius-sm);
+        font-size: 0.8rem;
+        text-align: center;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.2s;
+      }
+
+      .material-chip:hover {
+        border-color: var(--secondary);
+      }
+
+      .material-chip.active {
+        background: var(--secondary);
+        color: white;
+        border-color: var(--secondary);
+      }
+
+      .cost-summary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 1rem;
+      }
+
+      .cost-summary h3 {
+        color: white;
+        border-bottom-color: rgba(255,255,255,0.3);
+      }
+
+      .cost-amount {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 1rem 0;
+      }
+
+      .cost-breakdown {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        margin-top: 0.5rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .action-buttons button {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .btn-export {
+        background: var(--secondary);
+        color: white;
+      }
+
+      .btn-export:hover {
+        background: #e08a1f;
+      }
+
+      .btn-save {
+        background: var(--accent);
+        color: white;
+      }
+
+      .btn-save:hover {
+        background: #0d8565;
+      }
+
+      .feature-badge {
+        display: inline-block;
+        background: var(--secondary);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+      }
+
+      @media (max-width: 1024px) {
+        .configurator-container {
+          grid-template-columns: 1fr;
+        }
+
+        .config-panel {
+          max-height: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container navbar">
+        <a href="../index.html" class="brand">BuilderMaroc</a>
+        <nav class="nav-links">
+          <a href="guide-construction.html">Guide A-Z</a>
+          <a href="catalogue-materiaux.html">Matériaux</a>
+          <a href="annuaire-professionnels.html">Professionnels</a>
+          <a href="simulation.html">Simulateur</a>
+          <a href="configurateur-3d.html" class="active">Configurateur 3D</a>
+        </nav>
+        <a class="btn btn-primary" href="simulation.html">Devis Express</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section banner">
+        <div class="container">
+          <span class="feature-badge">🚀 Phase 2 - Nouveau</span>
+          <h1>Configurateur 3D Interactif</h1>
+          <p>
+            Visualisez votre projet de construction en temps réel avec notre configurateur 3D avancé.
+            Choisissez parmi nos modèles pré-définis adaptés au Maroc, personnalisez chaque pièce,
+            sélectionnez vos matériaux et obtenez une estimation instantanée.
+          </p>
+        </div>
+      </section>
+
+      <div class="container">
+        <div class="configurator-container">
+          <!-- Left Panel: Model Selection -->
+          <aside class="config-panel">
+            <h3>📐 Modèles Pré-définis</h3>
+
+            <div class="model-card active" data-model="villa-r1">
+              <h4>🏡 Villa R+1 Contemporaine</h4>
+              <p>240 m² • 4 chambres • 2 salons</p>
+              <small style="color: var(--primary); font-weight: 600;">À partir de 1,2M MAD</small>
+            </div>
+
+            <div class="model-card" data-model="riad-patio">
+              <h4>🏛️ Riad Traditionnel</h4>
+              <p>180 m² • Patio central • 3 chambres</p>
+              <small style="color: var(--primary); font-weight: 600;">À partir de 850K MAD</small>
+            </div>
+
+            <div class="model-card" data-model="villa-r2">
+              <h4>🏢 Villa R+2 Standing</h4>
+              <p>320 m² • 5 chambres • Terrasse</p>
+              <small style="color: var(--primary); font-weight: 600;">À partir de 1,8M MAD</small>
+            </div>
+
+            <div class="model-card" data-model="maison-eco">
+              <h4>🌿 Maison Économique</h4>
+              <p>120 m² • 3 chambres • Compact</p>
+              <small style="color: var(--primary); font-weight: 600;">À partir de 480K MAD</small>
+            </div>
+
+            <div class="model-card" data-model="immeuble-r3">
+              <h4>🏘️ Immeuble R+3 Locatif</h4>
+              <p>400 m² • 6 appartements</p>
+              <small style="color: var(--primary); font-weight: 600;">À partir de 2,4M MAD</small>
+            </div>
+
+            <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;" />
+
+            <h3>🎨 Personnalisation</h3>
+
+            <div class="config-section">
+              <label for="region-config">Région</label>
+              <select id="region-config">
+                <option value="casablanca">Casablanca-Settat</option>
+                <option value="rabat">Rabat-Salé-Kénitra</option>
+                <option value="marrakech">Marrakech-Safi</option>
+                <option value="tanger">Tanger-Tétouan</option>
+                <option value="fes">Fès-Meknès</option>
+                <option value="agadir">Agadir-Souss-Massa</option>
+              </select>
+            </div>
+
+            <div class="config-section">
+              <label for="terrain-surface">Surface terrain (m²)</label>
+              <input type="number" id="terrain-surface" value="300" min="100" max="2000" />
+            </div>
+
+            <div class="config-section">
+              <label>Matériau Façade</label>
+              <div class="material-grid">
+                <div class="material-chip active" data-material="enduit">Enduit</div>
+                <div class="material-chip" data-material="pierre">Pierre</div>
+                <div class="material-chip" data-material="brique">Brique</div>
+                <div class="material-chip" data-material="zellige">Zellige</div>
+              </div>
+            </div>
+
+            <div class="config-section">
+              <label>Type Toiture</label>
+              <div class="material-grid">
+                <div class="material-chip active" data-material="terrasse">Terrasse</div>
+                <div class="material-chip" data-material="tuiles">Tuiles</div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Center: 3D Viewer -->
+          <div class="viewer-3d">
+            <div class="viewer-placeholder">
+              <h2>🏗️ Visualisation 3D</h2>
+              <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                Configurateur 3D interactif en développement<br />
+                <strong>Phase 2 - T1 2026</strong>
+              </p>
+              <p style="font-size: 0.95rem; max-width: 500px; margin: 0 auto; opacity: 0.9;">
+                Technologie Three.js pour rendu temps réel 60 FPS<br />
+                • Rotation 360° • Zoom • Visite virtuelle<br />
+                • Export 3D (glTF) • Screenshots HD<br />
+                • Intégration photo terrain
+              </p>
+              <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 12px;">
+                <p style="font-size: 0.85rem; margin: 0;">
+                  💡 <strong>En attendant</strong>, utilisez notre <a href="simulation.html" style="color: var(--secondary); text-decoration: underline;">simulateur de devis</a>
+                  pour obtenir une estimation détaillée de votre projet.
+                </p>
+              </div>
+            </div>
+
+            <div class="viewer-controls">
+              <button>🔄 Rotation</button>
+              <button>🔍 Zoom</button>
+              <button>📸 Capture</button>
+              <button>🚶 Visite</button>
+            </div>
+          </div>
+
+          <!-- Right Panel: Cost & Actions -->
+          <aside class="config-panel">
+            <div class="cost-summary">
+              <h3>💰 Estimation Totale</h3>
+              <div class="cost-amount" id="config-total">1 248 000 MAD</div>
+              <div class="cost-breakdown">
+                Structure: 720K MAD (58%)<br />
+                Finitions: 360K MAD (29%)<br />
+                Aménagements: 168K MAD (13%)
+              </div>
+            </div>
+
+            <div class="action-buttons">
+              <button class="btn-export" onclick="alert('Export PDF disponible en Phase 2 complète')">
+                📄 Exporter PDF
+              </button>
+              <button class="btn-save" onclick="alert('Sauvegarde disponible après inscription')">
+                💾 Sauvegarder Projet
+              </button>
+              <button class="btn-export" style="background: var(--primary);" onclick="window.location.href='simulation.html'">
+                🧮 Devis Détaillé
+              </button>
+            </div>
+
+            <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;" />
+
+            <h3>📋 Configuration Actuelle</h3>
+            <div style="font-size: 0.9rem; line-height: 1.8;">
+              <strong>Modèle:</strong> Villa R+1 Contemporaine<br />
+              <strong>Surface:</strong> 240 m²<br />
+              <strong>Terrain:</strong> 300 m²<br />
+              <strong>Région:</strong> Casablanca-Settat<br />
+              <strong>Façade:</strong> Enduit traditionnel<br />
+              <strong>Toiture:</strong> Terrasse accessible<br />
+              <strong>Fondations:</strong> Semelles isolées<br />
+              <strong>Structure:</strong> Béton armé
+            </div>
+
+            <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e0e0e0;" />
+
+            <h3>⏱️ Délais Estimés</h3>
+            <div style="font-size: 0.9rem; line-height: 1.8;">
+              <strong>Études préalables:</strong> 2-3 mois<br />
+              <strong>Permis de construire:</strong> 1 mois<br />
+              <strong>Gros œuvre:</strong> 8-10 mois<br />
+              <strong>Finitions:</strong> 4-6 mois<br />
+              <strong style="color: var(--primary);">Total: 15-20 mois</strong>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Features Section -->
+        <section style="margin-top: 3rem; margin-bottom: 3rem;">
+          <h2 class="section-title">Fonctionnalités du Configurateur 3D (Phase 2)</h2>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h3>🎨 Personnalisation Complète</h3>
+              <p>
+                Modifiez dimensions, matériaux, couleurs, finitions en temps réel.
+                Plus de 150 matériaux locaux marocains disponibles avec textures réalistes.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>📸 Intégration Photo Terrain</h3>
+              <p>
+                Uploadez une photo de votre terrain et visualisez votre future construction
+                en contexte réel avec ajustements perspective automatiques.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>☀️ Simulation Lumière Naturelle</h3>
+              <p>
+                Visualisez l'éclairage naturel selon l'heure et la saison.
+                Optimisez l'orientation selon les principes d'architecture bioclimatique.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>📄 Export Professionnel</h3>
+              <p>
+                Exportez vos configurations en PDF détaillé, images HD, ou fichiers 3D (glTF)
+                compatibles avec logiciels d'architecture professionnels.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>🏘️ Mode Simulation Urbaine</h3>
+              <p>
+                Visualisez votre projet dans son environnement urbain avec contraintes
+                voisinage, hauteurs maximales, reculs obligatoires selon PLU local.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>💰 Estimation Temps Réel</h3>
+              <p>
+                Chaque modification met à jour instantanément l'estimation des coûts
+                avec données 2025 actualisées par région et type de finition.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section style="background: var(--surface-alt); padding: 2rem; border-radius: var(--radius-md); margin-bottom: 3rem;">
+          <h2 class="section-title">🗓️ Planning de Développement Phase 2</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div>
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">✅ Mois 4 (Janvier 2026)</h4>
+              <ul style="font-size: 0.9rem; line-height: 1.8;">
+                <li>Configurateur 3D basique (Three.js)</li>
+                <li>10 modèles pré-définis</li>
+                <li>Contrôles caméra (rotation, zoom)</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🔄 Mois 5 (Février 2026)</h4>
+              <ul style="font-size: 0.9rem; line-height: 1.8;">
+                <li>Bibliothèque 50 matériaux</li>
+                <li>Éditeur de pièces interactif</li>
+                <li>Export PNG/JPG HD</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: var(--primary); margin-bottom: 0.5rem;">🔄 Mois 6 (Mars 2026)</h4>
+              <ul style="font-size: 0.9rem; line-height: 1.8;">
+                <li>Intégration photo terrain</li>
+                <li>150+ matériaux complets</li>
+                <li>Simulation éclairage</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: var(--secondary); margin-bottom: 0.5rem;">🎯 Mois 7 (Avril 2026)</h4>
+              <ul style="font-size: 0.9rem; line-height: 1.8;">
+                <li>Export PDF professionnel</li>
+                <li>Mode simulation urbaine</li>
+                <li>Export 3D (glTF)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>BuilderMaroc</h3>
+          <p>
+            Plateforme révolutionnaire de simulation 3D et guide complet de construction pour le Maroc.
+            Phase 2 en développement actif.
+          </p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="../index.html">🏠 Accueil</a></li>
+            <li><a href="guide-construction.html">📚 Guide A-Z</a></li>
+            <li><a href="catalogue-materiaux.html">🧱 Matériaux</a></li>
+            <li><a href="annuaire-professionnels.html">👷 Professionnels</a></li>
+            <li><a href="simulation.html">🧮 Simulateur</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Projet</h4>
+          <p>
+            <strong>Version:</strong> 0.2.0 (Nov 2025)<br />
+            <strong>Phase:</strong> 2 - Expansion<br />
+            <strong>Status:</strong> En développement
+          </p>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2025 BuilderMaroc — Innovation construction au Maroc</div>
+    </footer>
+
+    <script>
+      // Simple interactivity for demo
+      document.querySelectorAll('.model-card').forEach(card => {
+        card.addEventListener('click', function() {
+          document.querySelectorAll('.model-card').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+
+          const model = this.getAttribute('data-model');
+          console.log('Selected model:', model);
+
+          // Update cost based on model (demo)
+          const costs = {
+            'villa-r1': '1 248 000',
+            'riad-patio': '876 000',
+            'villa-r2': '1 856 000',
+            'maison-eco': '492 000',
+            'immeuble-r3': '2 464 000'
+          };
+
+          document.getElementById('config-total').textContent = costs[model] + ' MAD';
+        });
+      });
+
+      document.querySelectorAll('.material-chip').forEach(chip => {
+        chip.addEventListener('click', function() {
+          const parent = this.parentElement;
+          parent.querySelectorAll('.material-chip').forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Update cost on terrain surface change
+      document.getElementById('terrain-surface').addEventListener('input', function() {
+        console.log('Terrain surface updated:', this.value);
+      });
+
+      // Update cost on region change
+      document.getElementById('region-config').addEventListener('change', function() {
+        console.log('Region changed:', this.value);
+      });
+    </script>
+  </body>
+</html>
