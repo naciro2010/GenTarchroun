@@ -1,0 +1,35 @@
+# robots.txt pour BuilderMaroc
+# Dernière mise à jour : 2025-11-05
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://buildermaroc.ma/sitemap.xml
+
+# Disallow development files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /README.md
+Disallow: /DEPLOYMENT.md
+
+# Allow all pages
+Allow: /pages/
+Allow: /assets/
+
+# Crawl delay (optional - be nice to smaller crawlers)
+Crawl-delay: 1
+
+# Specific bot configurations
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /

@@ -10,9 +10,36 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://buildermaroc.ma/" />
     <meta property="og:title" content="BuilderMaroc - Simulateur Construction Maroc 2025" />
     <meta property="og:description" content="Estimez votre projet de construction au Maroc en 5 minutes. Données 2025 actualisées pour 6 régions." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&h=630&fit=crop" />
     <meta property="og:locale" content="fr_MA" />
+    <meta property="og:site_name" content="BuilderMaroc" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BuilderMaroc - Plateforme Construction Maroc 2025" />
+    <meta name="twitter:description" content="Simulateur, guides, 150+ matériaux, 700+ professionnels. Tout pour votre projet de construction." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&h=630&fit=crop" />
+
+    <link rel="canonical" href="https://buildermaroc.ma/" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "BuilderMaroc",
+      "description": "Plateforme complète pour la construction au Maroc avec simulateur, guides et réseau de professionnels",
+      "url": "https://buildermaroc.ma",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://buildermaroc.ma/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 
     <!-- Performance & SEO -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -457,6 +484,11 @@
         Données 2025 actualisées | 6 régions couvertes | Roadmap professionnelle
       </div>
     </footer>
+
+    <!-- Analytics & Social Sharing Scripts -->
+    <script src="assets/js/analytics.js"></script>
+    <script src="assets/js/social-share.js"></script>
+
     <script>
       const yearSpan = document.getElementById("year");
       if (yearSpan) {
