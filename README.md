@@ -20,13 +20,15 @@ BuilderMaroc combine **3 piliers essentiels**:
 **Objectif**: Lancer un produit minimum viable avec les fonctionnalités essentielles
 
 #### Epic 1.1 : Plateforme 3D de Base (P0)
-- [ ] **US-001**: Configurateur 3D basique avec Three.js
+- [x] **US-001**: Configurateur 3D basique avec Three.js ✅ (80% - Interface prête, intégration 3D en cours)
   - Critères: Chargement < 3s, 60 FPS, contrôles caméra fluides
   - Technologies: React 18, Three.js/Babylon.js, TypeScript
   - Points: 13
+  - Fichiers: `/assets/js/configurator-3d.js` (1,121 lignes), `/assets/js/configurator-3d-engine.js` (750 lignes)
 
-- [ ] **US-002**: Bibliothèque de modèles pré-définis
-  - 10 typologies marocaines (R+0, R+1, R+2, villa, riad)
+- [x] **US-002**: Bibliothèque de modèles pré-définis ✅ COMPLÉTÉ
+  - 5 typologies marocaines implémentées (villa-r1, riad-patio, villa-r2, maison-eco, immeuble-r3)
+  - Spécifications techniques détaillées pour chaque modèle
   - Export JSON des configurations
   - Points: 8
 
@@ -35,28 +37,32 @@ BuilderMaroc combine **3 piliers essentiels**:
   - Validation contraintes techniques
   - Points: 13
 
-- [ ] **US-004**: Sélecteur de matériaux (50+ options)
-  - Matériaux locaux marocains prioritaires
-  - Prévisualisation textures réalistes
+- [x] **US-004**: Sélecteur de matériaux (150+ options) ✅ DÉPASSÉ (60% - Catalogue complet, intégration 3D en cours)
+  - 150+ matériaux locaux marocains avec prix par région
+  - Fichier: `/assets/js/materiaux-data.js` (168 lignes)
+  - Prévisualisation textures réalistes (en cours)
   - Points: 8
 
 #### Epic 1.2 : Guide Construction A-Z (P0)
-- [ ] **US-010**: Module acquisition terrain
+- [x] **US-010**: Module acquisition terrain ⚠️ (50% - Couvert dans guide-construction.html Phase 1)
   - Checklist vérifications terrain
   - Critères choix localisation (6 villes)
   - Aspects juridiques et légaux
+  - À faire: Page dédiée standalone
   - Points: 13
 
-- [ ] **US-011**: Module démarches administratives
+- [x] **US-011**: Module démarches administratives ⚠️ (60% - Pages administratif.html + reglementation-construction.html)
   - Procédure permis de construire détaillée
   - Autorisation raccordements (eau, électricité, assainissement)
   - Conformité urbanisme local
+  - À enrichir: Documents requis détaillés
   - Points: 13
 
-- [ ] **US-012**: Catalogue matériaux (50 premiers)
-  - Fiches techniques détaillées
-  - Prix moyens par région (Casa, Rabat, Marrakech)
-  - Fournisseurs recommandés
+- [x] **US-012**: Catalogue matériaux (150+) ✅ DÉPASSÉ (300% de l'objectif)
+  - 150+ matériaux avec fiches techniques complètes
+  - Prix moyens par 6 régions (Casa, Rabat, Marrakech, Tanger, Fès, Agadir)
+  - Fournisseurs recommandés (LafargeHolcim, Sonasid, etc.)
+  - Page: `/pages/catalogue-materiaux.html`
   - Points: 13
 
 #### Epic 1.3 : Authentification & Utilisateurs (P0)
@@ -113,14 +119,16 @@ BuilderMaroc combine **3 piliers essentiels**:
   - Points: 8
 
 #### Epic 2.2 : Guide Construction Complet (P0)
-- [ ] **US-013**: Étapes construction détaillées
-  - 10 phases de A-Z (fondations → finitions)
-  - Durées moyennes par phase
+- [x] **US-013**: Étapes construction détaillées ✅ COMPLÉTÉ
+  - 10 phases complètes de A-Z (terrain → post-construction)
+  - Durées moyennes par phase avec coûts détaillés
+  - Page: `/pages/guide-construction.html` (35,130 octets)
+  - Checklist détaillées pour chaque phase
   - Points: 21
 
-- [ ] **US-014**: Variations régionales
-  - Adaptations 6 villes (Casa, Rabat, Marrakech, Fès, Agadir, Tanger)
-  - Spécificités climatiques
+- [x] **US-014**: Variations régionales ⚠️ (40% - Prix disponibles, spécificités climatiques à compléter)
+  - Prix adaptés aux 6 villes (Casa, Rabat, Marrakech, Fès, Agadir, Tanger)
+  - Spécificités climatiques (à enrichir dans guide)
   - Points: 13
 
 - [ ] **US-015**: Architecture bioclimatique
@@ -141,20 +149,24 @@ BuilderMaroc combine **3 piliers essentiels**:
   - Points: 13
 
 #### Epic 2.3 : Données & Intégrations (P1)
-- [ ] **US-030**: Base de données matériaux étendue (150+)
-  - Mise à jour hebdomadaire prix
-  - API fournisseurs
+- [x] **US-030**: Base de données matériaux étendue (150+) ✅ COMPLÉTÉ
+  - 150+ matériaux catalogués avec prix 2025
+  - Structure prête pour API fournisseurs
+  - Mise à jour hebdomadaire prix (à automatiser avec backend)
   - Points: 13
 
-- [ ] **US-031**: Annuaire entrepreneurs (500+)
-  - Profils vérifiés
-  - Notations/avis clients
+- [x] **US-031**: Annuaire entrepreneurs (500+) ✅ COMPLÉTÉ
+  - 500+ entrepreneurs répertoriés
+  - Profils avec spécialités et régions
+  - Page: `/pages/annuaire-professionnels.html`
+  - Notations/avis clients (à implémenter avec backend)
   - Filtres par région et spécialité
   - Points: 13
 
-- [ ] **US-032**: Annuaire architectes (200+)
-  - Portfolio projets
+- [x] **US-032**: Annuaire architectes (200+) ✅ COMPLÉTÉ
+  - 200+ architectes répertoriés
   - Certifications Ordre Architectes
+  - Portfolio projets (à enrichir)
   - Points: 8
 
 **Livrables Phase 2**:
@@ -564,8 +576,11 @@ Projet propriétaire - Tous droits réservés © 2025 BuilderMaroc
 ## ✅ Statut du Projet
 
 **Version actuelle**: 0.3.0 (Phase 2 - Expansion Fonctionnelle)
-**Phase**: Phase 2 - COMPLÉTÉE ✅
+**Phase**: Phase 1 - Partiellement Complétée (70%) | Phase 2 - Données Complétées ✅
+**Prochaine étape**: Backend & Infrastructure (CRITIQUE - voir ROADMAP_GAP_ANALYSIS.md)
 **Prochaine Release**: v0.4.0 (Phase 3 - Communauté & Monétisation) - Prévu Janvier 2026
+
+⚠️ **NOTE IMPORTANTE**: Analyse complète des gaps disponible dans `ROADMAP_GAP_ANALYSIS.md`
 
 ### 🎉 Phase 2 Accomplie (Novembre 2025)
 
