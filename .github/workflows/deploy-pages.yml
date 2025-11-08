@@ -16,11 +16,46 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-validate:
+    name: Build and Validate Static Site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Validate HTML files
+        run: |
+          echo "📝 Validating HTML structure..."
+          # Check if index.html exists
+          if [ ! -f "index.html" ]; then
+            echo "❌ Error: index.html not found"
+            exit 1
+          fi
+
+          # Check for basic HTML structure
+          for file in index.html pages/*.html; do
+            if [ -f "$file" ]; then
+              echo "✅ Checking $file"
+              if ! grep -q "<html" "$file"; then
+                echo "❌ Error: $file is missing <html> tag"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ All HTML files validated successfully"
+
+      - name: Check required files
+        run: |
+          echo "📋 Checking required files..."
+          required_files=("index.html" "sitemap.xml" "robots.txt")
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing required file: $file"
+              exit 1
+            fi
+            echo "✅ Found: $file"
+          done
+          echo "✅ All required files present"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -29,9 +64,12 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
+          # Exclude unnecessary files
+          retention-days: 1
 
-  deploy:
-    needs: build
+  deploy-static:
+    name: Deploy to GitHub Pages
+    needs: build-and-validate
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -40,3 +78,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Deployment Summary
+        run: |
+          echo "🚀 Deployment completed successfully!"
+          echo "📍 Site URL: ${{ steps.deployment.outputs.page_url }}"
