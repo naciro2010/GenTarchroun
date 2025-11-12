@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur & Configurateur 3D - DarSimul Maroc</title>
-  <meta name="description" content="Simulateur de coût + Configurateur 3D interactif avec spécifications techniques détaillées pour votre projet de construction au Maroc" />
+  <title>Configurateur 3D Construction Maroc - Visualisation Temps Réel | BuilderMaroc</title>
+  <meta name="description" content="Configurateur 3D interactif pour votre projet de construction au Maroc. Visualisation temps réel, 10 modèles pré-définis, personnalisation complète, matériaux locaux, estimation instantanée. BuilderMaroc Phase 2." />
+  <meta name="keywords" content="configurateur 3D construction, simulation 3D Maroc, visualisation maison 3D, BuilderMaroc 3D, modélisation construction" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Configurateur 3D Construction Maroc | BuilderMaroc" />
+  <meta property="og:description" content="Visualisez votre projet en 3D temps réel. 10 modèles, personnalisation complète, estimation instantanée." />
+  <meta property="og:url" content="https://buildermaroc.ma/pages/simulation-3d.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Configurateur 3D Maroc | BuilderMaroc" />
+  <meta name="twitter:description" content="Visualisation 3D temps réel de votre projet de construction." />
+
+  <link rel="canonical" href="https://buildermaroc.ma/pages/simulation-3d.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -254,12 +268,14 @@
 <body>
   <header class="site-header">
     <div class="container navbar">
-      <a href="../index.html" class="brand">DarSimul Maroc</a>
+      <a href="../index.html" class="brand">BuilderMaroc</a>
       <nav class="nav-links">
-        <a href="plan-action.html">Plan d'action</a>
-        <a href="administratif.html">Documents</a>
-        <a href="bareme-structure.html">Barèmes</a>
-        <a href="simulation-3d.html" class="active">Simulation 3D</a>
+        <a href="guide-construction.html">Guide A-Z</a>
+        <a href="catalogue-materiaux.html">Matériaux</a>
+        <a href="annuaire-professionnels.html">Professionnels</a>
+        <a href="configurateur-3d.html">Configurateur 3D</a>
+        <a href="simulation.html">Simulateur</a>
+        <a href="simulation-3d.html" class="active">3D Legacy</a>
       </nav>
       <a class="btn btn-primary" href="#resultats">Voir l'estimation</a>
     </div>
@@ -526,22 +542,56 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div>
-        <h3>DarSimul Maroc</h3>
-        <p>Plateforme complète de simulation et visualisation 3D pour la construction au Maroc.</p>
+        <h3>BuilderMaroc</h3>
+        <p>
+          <strong>BuilderMaroc</strong> (anciennement DarSimul) révolutionne la construction au Maroc.
+          Plateforme digitale complète : simulateur intelligent, guide A-Z, données 2025 actualisées,
+          et réseau de professionnels certifiés. Roadmap détaillée disponible sur <a href="https://github.com/naciro2010/GenTarchroun" target="_blank" style="color: var(--secondary);">GitHub</a>.
+        </p>
       </div>
       <div>
-        <h4>En savoir plus</h4>
+        <h4>Ressources</h4>
         <ul>
-          <li><a href="plan-action.html">Plan d'action</a></li>
-          <li><a href="administratif.html">Procédures</a></li>
-          <li><a href="bareme-structure.html">Barème structurel</a></li>
+          <li><a href="guide-construction.html">📚 Guide A-Z</a></li>
+          <li><a href="catalogue-materiaux.html">🧱 Catalogue Matériaux</a></li>
+          <li><a href="annuaire-professionnels.html">👷 Annuaire Professionnels</a></li>
+          <li><a href="simulation.html">🧮 Simulateur</a></li>
+          <li><a href="administratif.html">📄 Démarches Administratives</a></li>
         </ul>
       </div>
+      <div>
+        <h4>Guides 2025</h4>
+        <ul>
+          <li><a href="marche-btp-2025.html">📊 Marché BTP 2025</a></li>
+          <li><a href="financement-construction.html">💰 Financement</a></li>
+          <li><a href="construction-ecologique.html">🌿 Construction Écologique</a></li>
+          <li><a href="reglementation-construction.html">📜 Réglementation</a></li>
+          <li><a href="../README.md">🗺️ Roadmap</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Informations</h4>
+        <p>
+          <strong>Phase actuelle :</strong> Phase 3 - Enrichissement Contenus<br />
+          <strong>Version :</strong> 0.3.0 (Nov 2025)<br />
+          <strong>Nouveau :</strong> 4 guides complets 2025<br />
+          <br />
+          <strong>Contact :</strong><br />
+          contact@buildermaroc.ma<br />
+          +212 5XX XX XX XX
+        </p>
+      </div>
     </div>
-    <div class="footer-bottom">© <span id="year"></span> DarSimul Maroc — Tous droits réservés.</div>
+    <div class="footer-bottom">
+      © <span id="year"></span> BuilderMaroc — Plateforme de simulation et guide de construction pour le Maroc.
+      Données 2025 actualisées | 6 régions couvertes | Roadmap professionnelle
+    </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Analytics & Mobile Menu Scripts -->
+  <script src="../assets/js/analytics.js"></script>
+
+  <!-- Scripts 3D -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
